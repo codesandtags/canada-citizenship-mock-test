@@ -1,10 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'export', // Static export for Vercel
-  trailingSlash: true,
-  images: {
-    unoptimized: true, // Required for static export
-  },
+  // Application requires dynamic API routes for NextAuth and Prisma.
+  // Static export implies no node server, which breaks auth flows.
 };
 
 export default nextConfig;

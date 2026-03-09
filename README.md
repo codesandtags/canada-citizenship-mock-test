@@ -1,8 +1,20 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Canada Citizenship Mock Test 🍁
+
+A modern, interactive web application to help prospective Canadian citizens study using realistic, timed mock exams based on the official "Discover Canada" study guide.
+
+## Features
+
+- **Realistic Mock Exams**: Generates 20 randomized questions mirroring the official test.
+- **Timed Testing Environment**: 30-minute countdown timer to practice under pressure.
+- **Detailed End-of-Quiz Review**: In-depth explanations for incorrect answers, paired directly with page-level source references to the *Discover Canada* portal.
+- **Focus Mode**: Distraction-free exam interface where navigation hides automatically.
+- **Modern Tech Stack**: Built with Next.js 14 App Router, React Server Components, Tailwind CSS, Prisma, and NextAuth.
 
 ## Getting Started
 
-First, run the development server:
+First, ensure you have a standard `.env` file generated based on the Prisma schema requirements.
+
+Run the development server:
 
 ```bash
 npm run dev
@@ -16,21 +28,16 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Architecture
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **Frontend**: Next.js 14 (App Router) with Tailwind CSS for rapid styling.
+- **Database Modeller**: Prisma ORM used for strict schema generation (Targeting PostgreSQL).
+- **Authentication Framework**: NextAuth.js configured for OAuth (Google & GitHub).
 
-## Learn More
+## Study Material
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+All mock questions are actively cited from the [Official Discover Canada Study Guide](https://www.canada.ca/en/immigration-refugees-citizenship/corporate/publications-manuals/discover-canada.html).
 
 ## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new). Make sure to configure the Vercel Postgres add-on to support the Prisma connection string correctly.
