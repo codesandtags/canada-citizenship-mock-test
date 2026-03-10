@@ -13,7 +13,7 @@ export default function NotFound() {
           <h1 className="text-7xl font-black text-gray-900 tracking-tighter">404</h1>
           <h2 className="mt-4 text-2xl font-bold text-gray-800 tracking-tight">Lost in the Tundra?</h2>
           <p className="mt-3 text-base text-gray-600 leading-relaxed">
-            Oops! It seems you've wandered off the trail. We couldn't find the page you're looking for.
+            Oops! It seems you&apos;ve wandered off the trail. We couldn&apos;t find the page you&apos;re looking for.
           </p>
         </div>
 

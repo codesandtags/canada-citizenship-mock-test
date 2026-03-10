@@ -46,7 +46,6 @@ export default function QuizComponent({ mockExam }: QuizComponentProps) {
     if (selectedAnswer === null) return;
 
     setIsAnswerSubmitted(true);
-    const currentQ = mockExam.questions[currentQuestionIndex];
 
     // Track user's answer
     const newAnswers = [...userAnswers];
