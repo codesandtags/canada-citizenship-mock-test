@@ -1,5 +1,6 @@
 import Link from 'next/link'
-import { BookOpen, Target, Clock, ShieldCheck } from 'lucide-react'
+import { BookOpen, Target, Clock, ShieldCheck, PlayCircle } from 'lucide-react'
+import { availableMocks } from '@/lib/mocks'
 
 export default function Home() {
   return (
@@ -30,21 +31,31 @@ export default function Home() {
               Prepare effectively with our interactive mock tests. We use the real official &quot;Discover Canada&quot; study guide to generate questions so you know exactly what to expect on exam day.
             </p>
 
-            <div className="mt-10 flex items-center gap-x-6">
-              <Link
-                href="/quiz"
-                className="rounded-xl bg-red-600 px-8 py-4 text-lg font-bold text-white shadow-sm hover:bg-red-700 hover:-translate-y-1 transition-all focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600"
-              >
-                Take a Free Mock Test
-              </Link>
-              <a href="#features" className="text-base font-semibold leading-6 text-gray-900">
-                Learn more <span aria-hidden="true">→</span>
-              </a>
+            <div className="mt-10 grid gap-6 sm:grid-cols-2">
+              {availableMocks.map((mock) => (
+                <div key={mock.id} className="relative flex flex-col items-start justify-between rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-900/5 transition-all hover:-translate-y-1 hover:shadow-lg border border-gray-100">
+                  <div className="flex items-center gap-x-4">
+                    <h3 className="text-lg font-bold leading-6 text-gray-900">
+                      {mock.title}
+                    </h3>
+                  </div>
+                  <p className="mt-2 text-sm leading-6 text-gray-600">
+                    {mock.description}
+                  </p>
+                  <Link
+                    href={`/quiz?id=${mock.id}`}
+                    className="mt-6 flex w-full items-center justify-center gap-x-2 rounded-xl bg-red-600 px-4 py-3 text-sm font-semibold text-white shadow-sm hover:bg-red-700"
+                  >
+                    <PlayCircle className="h-4 w-4" />
+                    Start Mock Exam
+                  </Link>
+                </div>
+              ))}
             </div>
           </div>
 
           {/* Hero Image / Graphic block */}
-          <div className="mx-auto mt-16 flex max-w-2xl sm:mt-24 lg:ml-10 lg:mr-0 lg:mt-0 lg:max-w-none lg:flex-none xl:ml-32">
+          <div className="mx-auto mt-16 hidden lg:flex max-w-2xl sm:mt-24 lg:ml-10 lg:mr-0 lg:mt-0 lg:max-w-none lg:flex-none xl:ml-32">
             <div className="max-w-3xl flex-none sm:max-w-5xl lg:max-w-none">
               <div className="rounded-2xl bg-gray-50/50 p-2 ring-1 ring-inset ring-gray-900/10 lg:rounded-3xl lg:p-4">
                 <div className="rounded-xl bg-white shadow-2xl ring-1 ring-gray-900/10 p-8 w-[400px] xl:w-[500px] border border-gray-100 flex flex-col items-center justify-center min-h-[400px]">

@@ -11,18 +11,29 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+}
+
+model MockExam {
+  id          String       @id @default(uuid())
+  title       String
+  description String
+  questions   Question[]
+  results     QuizResult[]
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
 }
 
 model Question {
-  id            String   @id @default(uuid())
+  id            String    @id @default(uuid())
   text          String
   options       String[]
   correctAnswer Int
   explanation   String
-  reference     String?  // Reference to Discover Canada guide (e.g., "Page 8")
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  reference     String?
+  mockExamId    String?   // Linked to MockExam
+  mockExam      MockExam? @relation(fields: [mockExamId], references: [id])
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
 }
 
 model QuizResult {
@@ -32,5 +43,7 @@ model QuizResult {
   total      Int
   passed     Boolean
   answers    Int[]    // Array of indices matching selected options
+  mockExamId String?  // Identifies which mock exam was taken
+  mockExam   MockExam? @relation(fields: [mockExamId], references: [id])
   createdAt  DateTime @default(now())
 }

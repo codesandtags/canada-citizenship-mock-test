@@ -1,11 +1,24 @@
-import QuizComponent from "@/components/QuizComponent"
+import QuizComponent from '@/components/QuizComponent'
+import { getMockExamById } from '@/lib/mocks'
+import { notFound } from 'next/navigation'
 
-export default function QuizPage() {
+export const dynamic = 'force-dynamic'
+
+export default function QuizPage({
+  searchParams,
+}: {
+  searchParams: { [key: string]: string | string[] | undefined }
+}) {
+  const mockId = typeof searchParams.id === 'string' ? searchParams.id : '1'
+  const mockExam = getMockExamById(mockId)
+
+  if (!mockExam) {
+    notFound()
+  }
+
   return (
-    <main className="min-h-screen bg-gray-50 flex flex-col items-center py-6 px-4 sm:px-6 lg:px-8">
-      <div className="w-full">
-        <QuizComponent />
-      </div>
+    <main className="min-h-screen bg-gray-50 flex flex-col items-center justify-center p-4">
+      <QuizComponent mockExam={mockExam} />
     </main>
   )
 }

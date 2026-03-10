@@ -1,4 +1,4 @@
-export const officialQuestions = [
+export const mock1Questions = [
   {
     id: 1,
     text: "What are three responsibilities of citizenship?",

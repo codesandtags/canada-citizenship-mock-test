@@ -3,38 +3,38 @@
 import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { Clock, CheckCircle, XCircle, AlertCircle, RefreshCcw, Home } from 'lucide-react'
-import { officialQuestions } from '@/lib/quiz-data'
+import { MockExamType } from '@/lib/mocks'
 
-export default function QuizComponent() {
-  // In a real app, 'questions' would come from an API and shuffle/randomize.
-  // For Phase 1 we use the static array.
-  const [questions] = useState(officialQuestions);
+interface QuizComponentProps {
+  mockExam: MockExamType;
+}
+
+export default function QuizComponent({ mockExam }: QuizComponentProps) {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
   const [isAnswerSubmitted, setIsAnswerSubmitted] = useState(false);
-  const [score, setScore] = useState(0);
-  const [isQuizFinished, setIsQuizFinished] = useState(false);
   const [userAnswers, setUserAnswers] = useState<(number | null)[]>([]);
+  const [quizFinished, setQuizFinished] = useState(false);
 
   // Timer state (30 minutes = 1800 seconds)
-  const [timeLeft, setTimeLeft] = useState(1800);
+  const [timeLeft, setTimeLeft] = useState(30 * 60);
 
   useEffect(() => {
-    if (isQuizFinished || timeLeft <= 0) return;
+    if (quizFinished || timeLeft <= 0) return;
 
     const timerId = setInterval(() => {
       setTimeLeft(prev => prev - 1);
     }, 1000);
 
     return () => clearInterval(timerId);
-  }, [timeLeft, isQuizFinished]);
+  }, [timeLeft, quizFinished]);
 
   // Handle auto-submit if timer runs out
   useEffect(() => {
-    if (timeLeft <= 0 && !isQuizFinished) {
-      setIsQuizFinished(true);
+    if (timeLeft <= 0 && !quizFinished) {
+      setQuizFinished(true);
     }
-  }, [timeLeft, isQuizFinished]);
+  }, [timeLeft, quizFinished]);
 
   const handleSelectAnswer = (index: number) => {
     if (!isAnswerSubmitted) {
@@ -46,25 +46,21 @@ export default function QuizComponent() {
     if (selectedAnswer === null) return;
 
     setIsAnswerSubmitted(true);
-    const currentQ = questions[currentQuestionIndex];
+    const currentQ = mockExam.questions[currentQuestionIndex];
 
     // Track user's answer
     const newAnswers = [...userAnswers];
     newAnswers[currentQuestionIndex] = selectedAnswer;
     setUserAnswers(newAnswers);
-
-    if (selectedAnswer === currentQ.correctAnswer) {
-      setScore(prev => prev + 1);
-    }
   };
 
   const handleNextQuestion = () => {
-    if (currentQuestionIndex < questions.length - 1) {
+    if (currentQuestionIndex < mockExam.questions.length - 1) {
       setCurrentQuestionIndex(prev => prev + 1);
       setSelectedAnswer(null);
       setIsAnswerSubmitted(false);
     } else {
-      setIsQuizFinished(true);
+      setQuizFinished(true);
     }
   };
 
@@ -72,10 +68,9 @@ export default function QuizComponent() {
     setCurrentQuestionIndex(0);
     setSelectedAnswer(null);
     setIsAnswerSubmitted(false);
-    setScore(0);
     setUserAnswers([]);
-    setIsQuizFinished(false);
-    setTimeLeft(1800);
+    setQuizFinished(false);
+    setTimeLeft(30 * 60);
   };
 
   const formatTime = (seconds: number) => {
@@ -84,20 +79,23 @@ export default function QuizComponent() {
     return `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
   };
 
-  const currentQ = questions[currentQuestionIndex];
+  const currentQuestion = mockExam.questions[currentQuestionIndex];
 
-  if (isQuizFinished) {
-    // A mock 75% pass rate (15/20) would be 0.75.
-    const passed = (score / questions.length) >= 0.75;
+  const score = userAnswers.reduce((total: number, answer, index) => {
+    return answer === mockExam.questions[index].correctAnswer ? total + 1 : total
+  }, 0)
 
+  const passed = score >= 15 // 15 out of 20 to pass (75%)
+
+  if (quizFinished) {
     return (
-      <div className="max-w-4xl mx-auto mt-8 space-y-8">
-        {/* Score Summary Card */}
-        <div className="p-4 sm:p-6 md:p-8 bg-white rounded-2xl shadow-lg border border-gray-100 flex flex-col items-center">
-          <h2 className="text-3xl sm:text-4xl font-black text-gray-900 tracking-tight mb-8">Quiz Completed!</h2>
-
+      <div className="w-full">
+        <div className="max-w-3xl mx-auto p-8 sm:p-12 bg-white rounded-3xl shadow-xl border border-gray-100 mt-8 mb-8 text-center flex flex-col items-center">
+          <h2 className="text-4xl font-black text-gray-900 mb-8 tracking-tight text-balance">
+            {mockExam.title} Completed!
+          </h2>
           <div className={`p-8 sm:p-10 rounded-full border-8 ${passed ? 'border-green-500 text-green-600 bg-green-50' : 'border-red-500 text-red-600 bg-red-50'} shadow-inner mb-6`}>
-             <div className="text-5xl sm:text-6xl font-extrabold">{score} <span className="text-3xl text-gray-400">/ {questions.length}</span></div>
+             <div className="text-5xl sm:text-6xl font-extrabold">{score} <span className="text-3xl text-gray-400">/ {mockExam.questions.length}</span></div>
           </div>
 
           <p className="text-xl sm:text-2xl font-medium text-gray-700 max-w-lg text-center mb-8">
@@ -123,18 +121,18 @@ export default function QuizComponent() {
         </div>
 
         {/* Detailed Review Section */}
-        <div className="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
-          <div className="px-6 py-5 border-b border-gray-100 bg-gray-50 flex items-center justify-between">
-            <h3 className="text-xl font-bold text-gray-900">Detailed Review Breakdown</h3>
-          </div>
-
-          <div className="divide-y divide-gray-100">
-            {questions.map((q, idx) => {
+        <div className="max-w-4xl mx-auto mb-16">
+          <h3 className="text-xl flex items-center gap-2 font-bold px-4 mb-6 text-gray-800">
+            <CheckCircle className="w-6 h-6 text-green-600" />
+            Detailed Review Breakdown
+          </h3>
+          <div className="space-y-6">
+            {mockExam.questions.map((question, idx) => {
               const userAnswerIndex = userAnswers[idx];
-              const isCorrect = userAnswerIndex === q.correctAnswer;
+              const isCorrect = userAnswerIndex === question.correctAnswer;
 
               return (
-                <div key={q.id} className="p-6 md:p-8">
+                <div key={question.id} className="p-6 md:p-8">
                   <div className="flex items-start gap-3 mb-4">
                     <div className="mt-1 flex-shrink-0">
                       {isCorrect ? (
@@ -145,7 +143,7 @@ export default function QuizComponent() {
                     </div>
                     <div>
                       <span className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-1 block">Question {idx + 1}</span>
-                      <h4 className="text-lg md:text-xl font-bold text-gray-900 leading-snug">{q.text}</h4>
+                      <h4 className="text-lg md:text-xl font-bold text-gray-900 leading-snug">{question.text}</h4>
                     </div>
                   </div>
 
@@ -156,7 +154,7 @@ export default function QuizComponent() {
                          <XCircle className="w-5 h-5 text-red-500 mt-0.5 flex-shrink-0" />
                          <div>
                            <p className="text-xs font-bold text-red-600 uppercase tracking-wider mb-1">Your Answer</p>
-                           <p className="text-red-900 font-medium">{q.options[userAnswerIndex]}</p>
+                           <p className="text-red-900 font-medium">{question.options[userAnswerIndex]}</p>
                          </div>
                       </div>
                     )}
@@ -166,7 +164,7 @@ export default function QuizComponent() {
                        <CheckCircle className="w-5 h-5 text-green-600 mt-0.5 flex-shrink-0"/>
                        <div>
                          <p className="text-xs font-bold text-green-700 uppercase tracking-wider mb-1">Correct Answer</p>
-                         <p className="text-green-900 font-medium">{q.options[q.correctAnswer]}</p>
+                         <p className="text-green-900 font-medium">{question.options[question.correctAnswer]}</p>
                        </div>
                     </div>
 
@@ -174,14 +172,14 @@ export default function QuizComponent() {
                      <div className="mt-4 p-4 md:p-5 rounded-xl bg-gray-50 border border-gray-100 text-gray-700 space-y-3">
                         <div>
                           <p className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">Explanation</p>
-                          <p className="leading-relaxed">{q.explanation}</p>
+                          <p className="leading-relaxed">{question.explanation}</p>
                         </div>
 
-                        {q.reference && (
+                        {question.reference && (
                           <div className="pt-3 border-t border-gray-200">
                             <p className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">Source Reference</p>
                             <a href="#" className="text-sm text-red-600 hover:text-red-700 hover:underline font-medium inline-flex items-center gap-1">
-                              {q.reference}
+                              {question.reference}
                             </a>
                           </div>
                         )}
@@ -197,13 +195,15 @@ export default function QuizComponent() {
   }
 
   return (
-    <div className="max-w-3xl mx-auto p-4 sm:p-6 md:p-8 bg-white rounded-2xl shadow-lg border border-gray-100 mt-8">
-      {/* Header section */}
-      <div className="flex justify-between items-center mb-8 pb-6 border-b border-gray-100">
-        <div>
-          <h2 className="text-2xl md:text-3xl font-bold text-gray-900 tracking-tight">Mock Exam</h2>
-          <p className="text-gray-500 font-medium mt-1">Question {currentQuestionIndex + 1} of {questions.length}</p>
-        </div>
+    <div className="w-full">
+        <div className="max-w-3xl mx-auto p-4 sm:p-6 md:p-8 bg-white rounded-2xl shadow-lg border border-gray-100 mt-8">
+
+          {/* Header */}
+          <div className="flex justify-between items-center mb-8 pb-6 border-b border-gray-100">
+            <div>
+              <h2 className="text-2xl md:text-3xl font-bold text-gray-900 tracking-tight">{mockExam.title}</h2>
+              <p className="text-gray-500 font-medium mt-1">Question {currentQuestionIndex + 1} of {mockExam.questions.length}</p>
+            </div>
         <div className={`flex items-center space-x-2 text-xl font-bold px-5 py-3 rounded-xl shadow-sm border
            ${timeLeft < 300 ? 'bg-red-50 text-red-600 border-red-200 animate-pulse' : 'bg-gray-50 text-gray-700 border-gray-200'}
         `}>
@@ -214,12 +214,12 @@ export default function QuizComponent() {
 
       {/* Question section */}
       <div className="mb-10">
-        <h3 className="text-2xl font-semibold text-gray-800 mb-8 leading-snug">{currentQ.text}</h3>
+        <h3 className="text-2xl font-semibold text-gray-800 mb-8 leading-snug">{currentQuestion.text}</h3>
 
         <div className="space-y-4">
-          {currentQ.options.map((option, index) => {
+          {currentQuestion.options.map((option, index) => {
             const isSelected = selectedAnswer === index;
-            const isCorrect = currentQ.correctAnswer === index;
+            const isCorrect = currentQuestion.correctAnswer === index;
 
             let optionStyles = "border-2 border-gray-200 hover:border-red-300 hover:bg-red-50/50 bg-white cursor-pointer text-gray-700";
 
@@ -266,20 +266,20 @@ export default function QuizComponent() {
         {isAnswerSubmitted ? (
           <div className="flex flex-col md:flex-row gap-6 justify-between items-start md:items-center">
             <div className={`flex-1 p-5 rounded-xl flex gap-4 items-start shadow-sm
-               ${selectedAnswer === currentQ.correctAnswer ? 'bg-green-50/80 text-green-800 border border-green-200' : 'bg-red-50/80 text-red-800 border border-red-200'}`}>
-              <AlertCircle className={`w-7 h-7 flex-shrink-0 mt-0.5 ${selectedAnswer === currentQ.correctAnswer ? 'text-green-600' : 'text-red-600'}`} />
+               ${selectedAnswer === currentQuestion.correctAnswer ? 'bg-green-50/80 text-green-800 border border-green-200' : 'bg-red-50/80 text-red-800 border border-red-200'}`}>
+              <AlertCircle className={`w-7 h-7 flex-shrink-0 mt-0.5 ${selectedAnswer === currentQuestion.correctAnswer ? 'text-green-600' : 'text-red-600'}`} />
               <div>
-                <h4 className={`font-bold text-lg mb-1 ${selectedAnswer === currentQ.correctAnswer ? 'text-green-700' : 'text-red-700'}`}>
-                  {selectedAnswer === currentQ.correctAnswer ? 'Correct!' : 'Incorrect'}
+                <h4 className={`font-bold text-lg mb-1 ${selectedAnswer === currentQuestion.correctAnswer ? 'text-green-700' : 'text-red-700'}`}>
+                  {selectedAnswer === currentQuestion.correctAnswer ? 'Correct!' : 'Incorrect'}
                 </h4>
-                <p className="text-base leading-relaxed opacity-90">{currentQ.explanation}</p>
+                <p className="text-base leading-relaxed opacity-90">{currentQuestion.explanation}</p>
               </div>
             </div>
             <button
               onClick={handleNextQuestion}
               className="w-full md:w-auto px-8 py-4 bg-gray-900 hover:bg-black text-white font-bold rounded-xl transition-all shadow-md hover:shadow-lg whitespace-nowrap"
             >
-              {currentQuestionIndex < questions.length - 1 ? 'Next Question →' : 'Finish Quiz'}
+              {currentQuestionIndex < mockExam.questions.length - 1 ? 'Next Question →' : 'Finish Quiz'}
             </button>
           </div>
         ) : (
@@ -298,6 +298,7 @@ export default function QuizComponent() {
           </div>
         )}
       </div>
+    </div>
     </div>
   )
 }
