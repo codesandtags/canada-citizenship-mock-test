@@ -28,7 +28,7 @@ export default function Home() {
             </h1>
 
             <p className="mt-6 text-lg leading-8 text-gray-600">
-              Prepare effectively with our interactive mock tests. We use the real official &quot;Discover Canada&quot; study guide to generate questions so you know exactly what to expect on exam day.
+              Prepare effectively with our interactive mock tests. We use the real official &quot;<a target="_blank" rel="noopener noreferrer" href="https://www.canada.ca/en/immigration-refugees-citizenship/corporate/publications-manuals/discover-canada.html" className="text-red-600 hover:text-red-700 font-semibold transition-colors">Discover Canada</a>&quot; study guide to generate questions so you know exactly what to expect on exam day.
             </p>
 
             <div className="mt-10 grid gap-6 sm:grid-cols-2">
