@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import LayoutWrapper from "@/components/LayoutWrapper";
+import FooterWrapper from "@/components/FooterWrapper";
 import { auth } from "@/lib/auth";
 import "./globals.css";
 
@@ -59,10 +60,13 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col min-h-screen`}
       >
         <LayoutWrapper session={session} />
-        {children}
+        <div className="flex-grow">
+          {children}
+        </div>
+        <FooterWrapper />
       </body>
     </html>
   );

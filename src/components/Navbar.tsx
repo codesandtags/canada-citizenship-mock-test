@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { LogIn, Menu, X, Clock, User } from 'lucide-react'
-import { signOut } from 'next-auth/react'
+import { signOut } from '@/lib/auth'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default function Navbar({ session }: { session: any }) {
@@ -53,7 +53,7 @@ export default function Navbar({ session }: { session: any }) {
                   Dashboard
                 </Link>
                 <button
-                  onClick={() => signOut({ callbackUrl: '/' })}
+                  onClick={() => signOut()}
                   className="text-sm font-semibold text-gray-500 hover:text-gray-900 transition-colors"
                 >
                   Sign Out
@@ -112,7 +112,7 @@ export default function Navbar({ session }: { session: any }) {
                 <button
                   onClick={() => {
                     setIsMobileMenuOpen(false);
-                    signOut({ callbackUrl: '/' });
+                    signOut();
                   }}
                   className="w-full text-left block px-3 py-3 rounded-lg text-base font-semibold text-gray-500 hover:text-gray-900 transition-colors"
                 >
