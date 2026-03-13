@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { Clock, CheckCircle, XCircle, AlertCircle, RefreshCcw, Home } from 'lucide-react'
 import { MockExamType } from '@/lib/mocks'
+import { saveQuizAction } from '@/app/actions/save-quiz'
 
 interface QuizComponentProps {
   mockExam: MockExamType;
@@ -35,6 +36,26 @@ export default function QuizComponent({ mockExam }: QuizComponentProps) {
       setQuizFinished(true);
     }
   }, [timeLeft, quizFinished]);
+
+  // Save the result when the quiz finishes
+  useEffect(() => {
+    if (quizFinished) {
+      // Calculate final score since userAnswers might not have been fully evaluated in render yet
+      const finalScore = userAnswers.reduce((total: number, answer, index) => {
+        return answer === mockExam.questions[index].correctAnswer ? total + 1 : total
+      }, 0)
+      const isPassed = finalScore >= 15
+
+      saveQuizAction({
+        score: finalScore,
+        total: mockExam.questions.length,
+        passed: isPassed,
+        answers: userAnswers.map(a => a ?? -1),
+        mockExamId: mockExam.id
+      }).catch(console.error);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [quizFinished]);
 
   const handleSelectAnswer = (index: number) => {
     if (!isAnswerSubmitted) {

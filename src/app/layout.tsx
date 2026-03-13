@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import LayoutWrapper from "@/components/LayoutWrapper";
+import { auth } from "@/lib/auth";
 import "./globals.css";
 
 const geistSans = localFont({
@@ -48,17 +49,19 @@ export const metadata: Metadata = {
   }
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const session = await auth();
+
   return (
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <LayoutWrapper />
+        <LayoutWrapper session={session} />
         {children}
       </body>
     </html>

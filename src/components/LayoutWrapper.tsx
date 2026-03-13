@@ -3,7 +3,8 @@
 import { usePathname } from 'next/navigation'
 import Navbar from '@/components/Navbar'
 
-export default function LayoutWrapper() {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export default function LayoutWrapper({ session }: { session: any }) {
   const pathname = usePathname()
 
   // Focus Mode: Hide navbar completely when user is taking the test.
@@ -11,5 +12,5 @@ export default function LayoutWrapper() {
 
   if (isFocusMode) return null;
 
-  return <Navbar />
+  return <Navbar session={session} />
 }

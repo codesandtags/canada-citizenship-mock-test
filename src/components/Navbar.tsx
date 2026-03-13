@@ -2,9 +2,11 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import { LogIn, Menu, X, Clock } from 'lucide-react'
+import { LogIn, Menu, X, Clock, User } from 'lucide-react'
+import { signOut } from 'next-auth/react'
 
-export default function Navbar() {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export default function Navbar({ session }: { session: any }) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   return (
     <nav className="sticky top-0 z-50 w-full backdrop-blur-md bg-white/75 border-b border-gray-100">
@@ -41,14 +43,31 @@ export default function Navbar() {
 
           {/* Right side actions - Desktop */}
           <div className="hidden md:flex items-center gap-4">
-            {/* Future: We will verify session here to show Dashboard vs Sign In */}
-            <Link
-              href="/login"
-              className="inline-flex items-center gap-2 justify-center rounded-xl bg-gray-900 px-5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-black hover:-translate-y-0.5 transition-all focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-900"
-            >
-              Sign In
-              <LogIn className="w-4 h-4" />
-            </Link>
+            {session ? (
+              <div className="flex items-center space-x-4">
+                <Link
+                  href="/dashboard"
+                  className="inline-flex items-center gap-2 px-4 py-2 font-semibold text-gray-700 hover:text-red-700 transition-colors"
+                >
+                  <User className="w-4 h-4" />
+                  Dashboard
+                </Link>
+                <button
+                  onClick={() => signOut({ callbackUrl: '/' })}
+                  className="text-sm font-semibold text-gray-500 hover:text-gray-900 transition-colors"
+                >
+                  Sign Out
+                </button>
+              </div>
+            ) : (
+              <Link
+                href="/login"
+                className="inline-flex items-center gap-2 justify-center rounded-xl bg-gray-900 px-5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-black hover:-translate-y-0.5 transition-all focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-900"
+              >
+                Sign In
+                <LogIn className="w-4 h-4" />
+              </Link>
+            )}
           </div>
 
           {/* Mobile menu button */}
@@ -81,14 +100,35 @@ export default function Navbar() {
               History Timeline
             </Link>
 
-            <Link
-              href="/login"
-              onClick={() => setIsMobileMenuOpen(false)}
-              className="flex items-center gap-2 justify-center w-full rounded-xl bg-gray-900 px-5 py-3.5 text-base font-semibold text-white shadow-sm hover:bg-black transition-all"
-            >
-              Sign In
-              <LogIn className="w-5 h-5" />
-            </Link>
+            {session ? (
+              <>
+                <Link
+                  href="/dashboard"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="block px-3 py-3 rounded-lg text-base font-semibold text-gray-900 hover:bg-red-50 hover:text-red-700 transition-colors"
+                >
+                  Dashboard
+                </Link>
+                <button
+                  onClick={() => {
+                    setIsMobileMenuOpen(false);
+                    signOut({ callbackUrl: '/' });
+                  }}
+                  className="w-full text-left block px-3 py-3 rounded-lg text-base font-semibold text-gray-500 hover:text-gray-900 transition-colors"
+                >
+                  Sign Out
+                </button>
+              </>
+            ) : (
+              <Link
+                href="/login"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="flex items-center gap-2 justify-center w-full rounded-xl bg-gray-900 px-5 py-3.5 text-base font-semibold text-white shadow-sm hover:bg-black transition-all"
+              >
+                Sign In
+                <LogIn className="w-5 h-5" />
+              </Link>
+            )}
           </div>
         </div>
       )}
