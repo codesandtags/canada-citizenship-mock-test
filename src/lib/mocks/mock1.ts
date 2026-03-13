@@ -9,6 +9,7 @@ export const mock1Questions = [
       "Buying Canadian products, owning your own business, using less water."
     ],
     correctAnswer: 1,
+    category: "Rights and Responsibilities",
     explanation: "The Discover Canada guide outlines responsibilities including: obeying the law, taking responsibility for oneself and one's family, serving on a jury, voting in elections, helping others in the community, and protecting and enjoying our heritage and environment.",
     reference: "Discover Canada Guide, Page 9"
   },
@@ -22,6 +23,7 @@ export const mock1Questions = [
       "To remember the sacrifice of Canadians who have served or died in wars up to the present day."
     ],
     correctAnswer: 3,
+    category: "Canadian Symbols",
     explanation: "Canadians wear the red poppy to remember the sacrifices of Canadians who have served or died in conflicts up to the present day.",
     reference: "Discover Canada Guide, Page 22"
   },
@@ -35,6 +37,7 @@ export const mock1Questions = [
       "They are elected by landowners and police chiefs."
     ],
     correctAnswer: 2,
+    category: "How Canadians Govern Themselves",
     explanation: "Members of Parliament (MPs) are elected by Canadian citizens in their local constituencies (ridings) to represent them in the House of Commons.",
     reference: "Discover Canada Guide, Page 28"
   },
@@ -48,6 +51,7 @@ export const mock1Questions = [
       "The Criminal Code and the Civil Code."
     ],
     correctAnswer: 0,
+    category: "Rights and Responsibilities",
     explanation: "The Magna Carta (signed in 1215) is a historic document that influences our rights, and the Canadian Charter of Rights and Freedoms (1982) is entrenched in our Constitution.",
     reference: "Discover Canada Guide, Page 8"
   },
@@ -61,6 +65,7 @@ export const mock1Questions = [
       "Freedom from discrimination, freedom of equality, freedom of multiculturalism, freedom of bilingualism."
     ],
     correctAnswer: 2,
+    category: "Rights and Responsibilities",
     explanation: "Canadians enjoy fundamental freedoms including conscience and religion; thought, belief, opinion and expression (including free speech and a free press); peaceful assembly; and association.",
     reference: "Discover Canada Guide, Page 8"
   },
@@ -74,6 +79,7 @@ export const mock1Questions = [
       "Men and women must earn the same salary by law in all private sectors."
     ],
     correctAnswer: 1,
+    category: "Rights and Responsibilities",
     explanation: "In Canada, men and women are equal under the law. Canada’s openness and generosity do not extend to barbaric cultural practices that tolerate spousal abuse, honour killings, female genital mutilation, or other gender-based violence.",
     reference: "Discover Canada Guide, Page 9"
   },
@@ -87,6 +93,7 @@ export const mock1Questions = [
       "The Vikings, the French, and the First Nations."
     ],
     correctAnswer: 1,
+    category: "Who We Are",
     explanation: "Aboriginal, French, and British peoples are the three founding peoples of Canada.",
     reference: "Discover Canada Guide, Page 10"
   },
@@ -100,6 +107,7 @@ export const mock1Questions = [
       "French settlers who arrived in the 1700s."
     ],
     correctAnswer: 0,
+    category: "Who We Are",
     explanation: "The Métis are a distinct people of mixed Aboriginal and European ancestry, the majority of whom live in the Prairie provinces.",
     reference: "Discover Canada Guide, Page 11"
   },
@@ -113,6 +121,7 @@ export const mock1Questions = [
       "The People."
     ],
     correctAnswer: 3,
+    category: "Who We Are",
     explanation: "The term Inuit means 'the people' in the Inuktitut language. They live in small, scattered communities across the Arctic.",
     reference: "Discover Canada Guide, Page 11"
   },
@@ -126,6 +135,7 @@ export const mock1Questions = [
       "The government cannot be sued by the public."
     ],
     correctAnswer: 1,
+    category: "Canada's History",
     explanation: "Responsible government means that the ministers of the Crown must have the support of a majority of the elected representatives in order to govern. If they lose a confidence vote, they must resign.",
     reference: "Discover Canada Guide, Page 16"
   },
@@ -139,6 +149,7 @@ export const mock1Questions = [
       "A famous French explorer who discovered the St. Lawrence River."
     ],
     correctAnswer: 1,
+    category: "Canada's History",
     explanation: "La Fontaine was a champion of French language rights and became the first leader of a responsible government in the Canadas in 1849.",
     reference: "Discover Canada Guide, Page 16"
   },
@@ -152,6 +163,7 @@ export const mock1Questions = [
       "A fast way to move troops during wartime."
     ],
     correctAnswer: 1,
+    category: "Canada's History",
     explanation: "A powerful symbol of unity, the Canadian Pacific Railway joined the East to the West, fulfilling a promise made to British Columbia when it joined Confederation.",
     reference: "Discover Canada Guide, Page 18"
   },
@@ -165,6 +177,7 @@ export const mock1Questions = [
       "The signing of peace treaties with the First Nations."
     ],
     correctAnswer: 1,
+    category: "Canada's History",
     explanation: "Confederation (1867) is the joining of provinces (Ontario, Quebec, Nova Scotia, and New Brunswick) to make a new country called the Dominion of Canada.",
     reference: "Discover Canada Guide, Page 17"
   },
@@ -178,6 +191,7 @@ export const mock1Questions = [
       "It was the first vaccine ever created."
     ],
     correctAnswer: 2,
+    category: "Modern Canada",
     explanation: "In 1922, Sir Frederick Banting and Charles Best discovered insulin, a hormone to treat diabetes that has saved 16 million lives worldwide.",
     reference: "Discover Canada Guide, Page 24"
   },
@@ -191,6 +205,7 @@ export const mock1Questions = [
       "The Constitution was written by a King."
     ],
     correctAnswer: 2,
+    category: "How Canadians Govern Themselves",
     explanation: "In a constitutional monarchy, Canada's Head of State is a hereditary Sovereign (Queen or King) who reigns in accordance with the Constitution, while the Head of Government is the Prime Minister.",
     reference: "Discover Canada Guide, Page 26"
   },
@@ -204,6 +219,7 @@ export const mock1Questions = [
       "Police, Military, Government."
     ],
     correctAnswer: 1,
+    category: "How Canadians Govern Themselves",
     explanation: "The three branches of government are the Executive, Legislative, and Judicial branches.",
     reference: "Discover Canada Guide, Page 26"
   },
@@ -217,6 +233,7 @@ export const mock1Questions = [
       "The Medal of Bravery."
     ],
     correctAnswer: 2,
+    category: "Canada's History",
     explanation: "The Victoria Cross (V.C.) is the highest honour available to Canadians and is awarded for the most conspicuous bravery.",
     reference: "Discover Canada Guide, Page 20"
   },
@@ -230,6 +247,7 @@ export const mock1Questions = [
       "Only individuals who pay income tax."
     ],
     correctAnswer: 0,
+    category: "How Canadians Govern Themselves",
     explanation: "To vote in a federal election, you must be a Canadian citizen, at least 18 years old on voting day, and on the voters' list.",
     reference: "Discover Canada Guide, Page 30"
   },
@@ -243,6 +261,7 @@ export const mock1Questions = [
       "Mayor, Premier, Governor General."
     ],
     correctAnswer: 1,
+    category: "Federal Elections",
     explanation: "The three levels of government are Federal, Provincial and Territorial, and Municipal (local) government.",
     reference: "Discover Canada Guide, Page 32"
   },
@@ -256,6 +275,7 @@ export const mock1Questions = [
       "The rose and the thistle."
     ],
     correctAnswer: 1,
+    category: "Canadian Symbols",
     explanation: "The beaver and the maple leaf are prominent Canadian symbols recognized worldwide.",
     reference: "Discover Canada Guide, Pages 36-37"
   }

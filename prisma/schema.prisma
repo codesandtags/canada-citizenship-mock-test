@@ -5,7 +5,7 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "prisma-client"
+  provider = "prisma-client-js"
   output   = "../src/generated/prisma"
 }
 
@@ -29,6 +29,7 @@ model Question {
   options       String[]
   correctAnswer Int
   explanation   String
+  category      String?   // Added for V0.0.6 analytics
   reference     String?
   mockExamId    String?   
   mockExam      MockExam? @relation(fields: [mockExamId], references: [id])

@@ -7,6 +7,7 @@ export interface QuestionType {
   options: string[];
   correctAnswer: number;
   explanation: string;
+  category: string; // Required for V0.0.6 analytics
   reference?: string;
 }
 

@@ -2,73 +2,106 @@
 
 import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { Clock, CheckCircle, XCircle, AlertCircle, RefreshCcw, Home } from 'lucide-react'
-import { MockExamType } from '@/lib/mocks'
+import { Clock, CheckCircle, XCircle, AlertCircle, RefreshCcw, Home, LogIn } from 'lucide-react'
 import { saveQuizAction } from '@/app/actions/save-quiz'
+
+// Enhanced types for V0.0.6
+export interface QuestionType {
+  id: string | number;
+  text: string;
+  options: string[];
+  correctAnswer: number;
+  explanation: string;
+  category?: string;
+  reference?: string;
+}
+
+export interface MockExamType {
+  id: string;
+  title: string;
+  description: string;
+  questions: QuestionType[];
+}
 
 interface QuizComponentProps {
   mockExam: MockExamType;
+  userId?: string;
+  isReviewMode?: boolean;
+  userAnswers?: number[];
+  score?: number;
 }
 
-export default function QuizComponent({ mockExam }: QuizComponentProps) {
+export default function QuizComponent({ 
+  mockExam, 
+  userId, 
+  isReviewMode = false,
+  userAnswers: initialUserAnswers,
+  score: initialScore
+}: QuizComponentProps) {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
   const [isAnswerSubmitted, setIsAnswerSubmitted] = useState(false);
-  const [userAnswers, setUserAnswers] = useState<(number | null)[]>([]);
-  const [quizFinished, setQuizFinished] = useState(false);
+  const [userAnswers, setUserAnswers] = useState<(number | null)[]>(initialUserAnswers || []);
+  const [quizFinished, setQuizFinished] = useState(isReviewMode);
+  const [isSaving, setIsSaving] = useState(false);
+  const [saveError, setSaveError] = useState<string | null>(null);
 
   // Timer state (30 minutes = 1800 seconds)
   const [timeLeft, setTimeLeft] = useState(30 * 60);
 
   useEffect(() => {
-    if (quizFinished || timeLeft <= 0) return;
+    if (quizFinished || isReviewMode || timeLeft <= 0) return;
 
     const timerId = setInterval(() => {
       setTimeLeft(prev => prev - 1);
     }, 1000);
 
     return () => clearInterval(timerId);
-  }, [timeLeft, quizFinished]);
+  }, [timeLeft, quizFinished, isReviewMode]);
 
   // Handle auto-submit if timer runs out
   useEffect(() => {
-    if (timeLeft <= 0 && !quizFinished) {
+    if (timeLeft <= 0 && !quizFinished && !isReviewMode) {
       setQuizFinished(true);
     }
-  }, [timeLeft, quizFinished]);
+  }, [timeLeft, quizFinished, isReviewMode]);
 
-  // Save the result when the quiz finishes
+  // Save the result when the quiz finishes (only if not in review mode)
   useEffect(() => {
-    if (quizFinished) {
-      // Calculate final score since userAnswers might not have been fully evaluated in render yet
+    if (quizFinished && !isReviewMode && userId) {
       const finalScore = userAnswers.reduce((total: number, answer, index) => {
         return answer === mockExam.questions[index].correctAnswer ? total + 1 : total
       }, 0)
       const isPassed = finalScore >= 15
 
+      setIsSaving(true);
       saveQuizAction({
         score: finalScore,
         total: mockExam.questions.length,
         passed: isPassed,
         answers: userAnswers.map(a => a ?? -1),
         mockExamId: mockExam.id
-      }).catch(console.error);
+      })
+      .then(res => {
+        if (!res.success) setSaveError(res.error || 'Failed to save');
+      })
+      .catch(() => setSaveError('Failed to save result'))
+      .finally(() => setIsSaving(false));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [quizFinished]);
+  }, [quizFinished, isReviewMode, userId]);
 
   const handleSelectAnswer = (index: number) => {
-    if (!isAnswerSubmitted) {
+    if (!isAnswerSubmitted && !isReviewMode) {
       setSelectedAnswer(index);
     }
   };
 
   const handleSubmitAnswer = () => {
-    if (selectedAnswer === null) return;
+    if (selectedAnswer === null || isReviewMode) return;
 
     setIsAnswerSubmitted(true);
 
-    // Track user's answer
     const newAnswers = [...userAnswers];
     newAnswers[currentQuestionIndex] = selectedAnswer;
     setUserAnswers(newAnswers);
@@ -91,6 +124,7 @@ export default function QuizComponent({ mockExam }: QuizComponentProps) {
     setUserAnswers([]);
     setQuizFinished(false);
     setTimeLeft(30 * 60);
+    setSaveError(null);
   };
 
   const formatTime = (seconds: number) => {
@@ -101,7 +135,7 @@ export default function QuizComponent({ mockExam }: QuizComponentProps) {
 
   const currentQuestion = mockExam.questions[currentQuestionIndex];
 
-  const score = userAnswers.reduce((total: number, answer, index) => {
+  const score = isReviewMode ? (initialScore ?? 0) : userAnswers.reduce((total: number, answer, index) => {
     return answer === mockExam.questions[index].correctAnswer ? total + 1 : total
   }, 0)
 
@@ -112,8 +146,9 @@ export default function QuizComponent({ mockExam }: QuizComponentProps) {
       <div className="w-full">
         <div className="max-w-3xl mx-auto p-8 sm:p-12 bg-white rounded-3xl shadow-xl border border-gray-100 mt-8 mb-8 text-center flex flex-col items-center">
           <h2 className="text-4xl font-black text-gray-900 mb-8 tracking-tight text-balance">
-            {mockExam.title} Completed!
+            {isReviewMode ? 'Result Review' : `${mockExam.title} Completed!`}
           </h2>
+          
           <div className={`p-8 sm:p-10 rounded-full border-8 ${passed ? 'border-green-500 text-green-600 bg-green-50' : 'border-red-500 text-red-600 bg-red-50'} shadow-inner mb-6`}>
              <div className="text-5xl sm:text-6xl font-extrabold">{score} <span className="text-3xl text-gray-400">/ {mockExam.questions.length}</span></div>
           </div>
@@ -122,20 +157,41 @@ export default function QuizComponent({ mockExam }: QuizComponentProps) {
             {passed ? "Congratulations! You passed the mock test." : "You didn't pass this time. Review your answers below and keep studying!"}
           </p>
 
+          {!userId && !isReviewMode && (
+            <div className="mb-8 p-6 bg-blue-50 border border-blue-100 rounded-2xl flex items-center gap-4 text-left">
+              <div className="p-3 bg-blue-600 text-white rounded-xl">
+                <LogIn className="w-6 h-6" />
+              </div>
+              <div>
+                <h4 className="font-bold text-blue-900">Want to save your progress?</h4>
+                <p className="text-blue-700 text-sm">Sign in to track your scores and see which areas you need to focus on.</p>
+                <Link href="/login" className="text-blue-600 font-bold text-sm hover:underline mt-1 inline-block">Sign in now &rarr;</Link>
+              </div>
+            </div>
+          )}
+
+          {saveError && (
+             <p className="text-red-600 mb-4 font-medium flex items-center gap-2">
+               <AlertCircle className="w-5 h-5" /> {saveError}
+             </p>
+          )}
+
           <div className="flex flex-col sm:flex-row gap-4 w-full justify-center max-w-lg">
-            <button
-              onClick={handleRestartQuiz}
-              className="flex-1 flex items-center justify-center space-x-2 px-8 py-4 bg-red-600 hover:bg-red-700 text-white font-bold rounded-xl transition-all shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
-            >
-              <RefreshCcw className="w-5 h-5" />
-              <span>Retake Mock Exam</span>
-            </button>
+            {!isReviewMode && (
+              <button
+                onClick={handleRestartQuiz}
+                className="flex-1 flex items-center justify-center space-x-2 px-8 py-4 bg-red-600 hover:bg-red-700 text-white font-bold rounded-xl transition-all shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
+              >
+                <RefreshCcw className="w-5 h-5" />
+                <span>Retake Mock Exam</span>
+              </button>
+            )}
             <Link
-              href="/"
+              href={userId ? "/dashboard" : "/"}
               className="flex-1 flex items-center justify-center space-x-2 px-8 py-4 bg-white hover:bg-gray-50 text-gray-900 border-2 border-gray-200 font-bold rounded-xl transition-all shadow-sm hover:shadow-md transform hover:-translate-y-0.5"
             >
               <Home className="w-5 h-5" />
-              <span>Go Home</span>
+              <span>{userId ? 'Go to Dashboard' : 'Go Home'}</span>
             </Link>
           </div>
         </div>
@@ -152,7 +208,7 @@ export default function QuizComponent({ mockExam }: QuizComponentProps) {
               const isCorrect = userAnswerIndex === question.correctAnswer;
 
               return (
-                <div key={question.id} className="p-6 md:p-8">
+                <div key={question.id || idx} className="p-6 md:p-8 bg-white rounded-2xl shadow-sm border border-gray-100">
                   <div className="flex items-start gap-3 mb-4">
                     <div className="mt-1 flex-shrink-0">
                       {isCorrect ? (
@@ -162,14 +218,20 @@ export default function QuizComponent({ mockExam }: QuizComponentProps) {
                       )}
                     </div>
                     <div>
-                      <span className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-1 block">Question {idx + 1}</span>
+                      <div className="flex items-center gap-2 mb-1">
+                        <span className="text-sm font-semibold text-gray-500 uppercase tracking-wider block">Question {idx + 1}</span>
+                        {question.category && (
+                          <span className="text-xs font-bold px-2 py-0.5 bg-gray-100 text-gray-600 rounded-md">
+                            {question.category}
+                          </span>
+                        )}
+                      </div>
                       <h4 className="text-lg md:text-xl font-bold text-gray-900 leading-snug">{question.text}</h4>
                     </div>
                   </div>
 
                   <div className="ml-9 space-y-4">
-                    {/* User's Incorrect Output (Only show if they got it wrong) */}
-                    {!isCorrect && userAnswerIndex !== null && userAnswerIndex !== undefined && (
+                    {!isCorrect && userAnswerIndex !== null && userAnswerIndex !== undefined && userAnswerIndex !== -1 && (
                       <div className="p-3 md:p-4 rounded-xl bg-red-50 border border-red-100 flex items-start gap-3">
                          <XCircle className="w-5 h-5 text-red-500 mt-0.5 flex-shrink-0" />
                          <div>
@@ -179,7 +241,6 @@ export default function QuizComponent({ mockExam }: QuizComponentProps) {
                       </div>
                     )}
 
-                    {/* Correct Output */}
                     <div className="p-3 md:p-4 rounded-xl bg-green-50 border border-green-100 flex items-start gap-3">
                        <CheckCircle className="w-5 h-5 text-green-600 mt-0.5 flex-shrink-0"/>
                        <div>
@@ -188,7 +249,6 @@ export default function QuizComponent({ mockExam }: QuizComponentProps) {
                        </div>
                     </div>
 
-                    {/* Explanation and Reference */}
                      <div className="mt-4 p-4 md:p-5 rounded-xl bg-gray-50 border border-gray-100 text-gray-700 space-y-3">
                         <div>
                           <p className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">Explanation</p>
@@ -198,9 +258,9 @@ export default function QuizComponent({ mockExam }: QuizComponentProps) {
                         {question.reference && (
                           <div className="pt-3 border-t border-gray-200">
                             <p className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">Source Reference</p>
-                            <a href="#" className="text-sm text-red-600 hover:text-red-700 hover:underline font-medium inline-flex items-center gap-1">
+                            <span className="text-sm text-red-600 font-medium">
                               {question.reference}
-                            </a>
+                            </span>
                           </div>
                         )}
                      </div>
@@ -222,7 +282,14 @@ export default function QuizComponent({ mockExam }: QuizComponentProps) {
           <div className="flex justify-between items-center mb-8 pb-6 border-b border-gray-100">
             <div>
               <h2 className="text-2xl md:text-3xl font-bold text-gray-900 tracking-tight">{mockExam.title}</h2>
-              <p className="text-gray-500 font-medium mt-1">Question {currentQuestionIndex + 1} of {mockExam.questions.length}</p>
+              <div className="flex items-center gap-2 mt-1">
+                <p className="text-gray-500 font-medium">Question {currentQuestionIndex + 1} of {mockExam.questions.length}</p>
+                {currentQuestion.category && (
+                  <span className="text-xs font-bold px-2 py-0.5 bg-red-50 text-red-600 rounded-md">
+                    {currentQuestion.category}
+                  </span>
+                )}
+              </div>
             </div>
         <div className={`flex items-center space-x-2 text-xl font-bold px-5 py-3 rounded-xl shadow-sm border
            ${timeLeft < 300 ? 'bg-red-50 text-red-600 border-red-200 animate-pulse' : 'bg-gray-50 text-gray-700 border-gray-200'}
@@ -318,6 +385,11 @@ export default function QuizComponent({ mockExam }: QuizComponentProps) {
           </div>
         )}
       </div>
+      {isSaving && (
+        <div className="mt-4 flex justify-center">
+          <p className="text-sm text-gray-500 animate-pulse">Saving your result...</p>
+        </div>
+      )}
     </div>
     </div>
   )

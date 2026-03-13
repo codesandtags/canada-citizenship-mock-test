@@ -2,7 +2,8 @@ import { auth } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
 import { redirect } from 'next/navigation'
 import Link from 'next/link'
-import { CheckCircle, Clock, TrendingUp, Target, BookOpen } from 'lucide-react'
+import { CheckCircle, Clock, TrendingUp, Target, BookOpen, ArrowRight, Play } from 'lucide-react'
+import { availableMocks } from '@/lib/mocks'
 
 export default async function DashboardPage() {
   const session = await auth()
@@ -30,6 +31,42 @@ export default async function DashboardPage() {
   // Calculate historical trend (last 5 tests)
   const recentResults = results.slice(0, 5).reverse();
 
+  // REAL ANALYTICS: Focus Areas
+  // We need to find which categories the user is failing in.
+  const categoryStats: Record<string, { total: number, correct: number }> = {};
+  
+  // To get real categories, we'd need to link results to questions.
+  // Since we save answers[] as indices, and we have in-memory mocks:
+  results.forEach(result => {
+    const mock = availableMocks.find(m => m.id === result.mockExamId);
+    if (!mock) return;
+    
+    result.answers.forEach((userAnswerIndex, qIndex) => {
+      const question = mock.questions[qIndex];
+      if (!question) return;
+      
+      const category = question.category || 'General';
+      if (!categoryStats[category]) {
+        categoryStats[category] = { total: 0, correct: 0 };
+      }
+      
+      categoryStats[category].total += 1;
+      if (userAnswerIndex === question.correctAnswer) {
+        categoryStats[category].correct += 1;
+      }
+    });
+  });
+
+  const sortedCategories = Object.entries(categoryStats)
+    .map(([name, stats]) => ({
+      name,
+      accuracy: Math.round((stats.correct / stats.total) * 100),
+      total: stats.total
+    }))
+    .sort((a, b) => a.accuracy - b.accuracy); // Worst first
+
+  const weakAreas = sortedCategories.slice(0, 3);
+
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
@@ -37,12 +74,6 @@ export default async function DashboardPage() {
           <h1 className="text-3xl font-extrabold text-gray-900 tracking-tight">Your Dashboard</h1>
           <p className="text-gray-500 mt-2">Welcome back, {session.user.name || 'User'}!</p>
         </div>
-        <Link
-          href="/"
-          className="mt-4 md:mt-0 px-6 py-3 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-xl transition-all shadow-sm"
-        >
-          Take a Mock Test
-        </Link>
       </div>
 
       {/* Statistics & Progress Tracker */}
@@ -76,6 +107,30 @@ export default async function DashboardPage() {
         </div>
       </div>
 
+      {/* Available Mocks Section */}
+      <div className="mb-12">
+        <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-2">
+          <Play className="w-6 h-6 text-red-600" />
+          Available Mock Exams
+        </h2>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {availableMocks.map((mock) => (
+            <div key={mock.id} className="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between">
+              <div>
+                <h3 className="text-lg font-bold text-gray-900 mb-2">{mock.title}</h3>
+                <p className="text-gray-500 text-sm mb-4 line-clamp-2">{mock.description}</p>
+              </div>
+              <Link
+                href={`/quiz?id=${mock.id}`}
+                className="w-full py-3 bg-red-600 hover:bg-red-700 text-white font-bold rounded-xl text-center transition-colors"
+              >
+                Start Exam
+              </Link>
+            </div>
+          ))}
+        </div>
+      </div>
+
       <div className="grid md:grid-cols-3 gap-8">
         
         {/* Main Content: Test History */}
@@ -91,11 +146,14 @@ export default async function DashboardPage() {
               </div>
             ) : (
               <div className="space-y-4">
-                {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-                {results.map((result: any) => (
-                  <div key={result.id} className="p-5 rounded-xl border border-gray-100 hover:border-red-100 hover:shadow-md transition-all bg-white flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                {results.map((result) => (
+                  <Link 
+                    key={result.id} 
+                    href={`/dashboard/results/${result.id}`}
+                    className="p-5 rounded-xl border border-gray-100 hover:border-red-100 hover:shadow-md transition-all bg-white flex flex-col sm:flex-row sm:items-center justify-between gap-4 group"
+                  >
                     <div>
-                      <h3 className="font-bold text-gray-900 mb-1 truncate">
+                      <h3 className="font-bold text-gray-900 mb-1 group-hover:text-red-600 transition-colors">
                         {result.mockExam?.title || "Mock Test"}
                       </h3>
                       <span className="text-sm font-medium text-gray-500">
@@ -111,8 +169,9 @@ export default async function DashboardPage() {
                       <div className={`flex items-center justify-center w-24 py-1.5 rounded-full text-sm font-bold ${result.passed ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
                         {result.passed ? 'Passed' : 'Failed'}
                       </div>
+                      <ArrowRight className="w-5 h-5 text-gray-300 group-hover:text-red-500 group-hover:translate-x-1 transition-all" />
                     </div>
-                  </div>
+                  </Link>
                 ))}
               </div>
             )}
@@ -135,7 +194,7 @@ export default async function DashboardPage() {
                           className={`w-full rounded-t-md absolute bottom-0 ${r.passed ? 'bg-green-500' : 'bg-red-500'}`} 
                           style={{ height: `${percentage}%` }}
                         ></div>
-                        <span className="absolute -top-6 text-xs font-bold text-gray-600 opacity-0 group-hover:opacity-100 transition-opacity">
+                        <span className="absolute -top-6 text-xs font-bold text-gray-600 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
                           {Math.round(percentage)}%
                         </span>
                       </div>
@@ -153,22 +212,33 @@ export default async function DashboardPage() {
               <BookOpen className="w-5 h-5 text-red-600" />
               <h2 className="text-lg font-bold text-gray-900">Focus Areas</h2>
             </div>
-            <p className="text-sm text-gray-500 mb-4">Based on your recent mistakes, focus your study on these chapters from Discover Canada:</p>
-            
-            <ul className="space-y-3">
-              <li className="flex items-center justify-between p-3 bg-red-50 rounded-lg border border-red-100 text-sm">
-                <span className="font-semibold text-red-900">The Justice System</span>
-                <span className="text-red-600 font-bold">Needs Review</span>
-              </li>
-              <li className="flex items-center justify-between p-3 bg-orange-50 rounded-lg border border-orange-100 text-sm">
-                <span className="font-semibold text-orange-900">Canada&apos;s History</span>
-                <span className="text-orange-600 font-bold">Practice More</span>
-              </li>
-              <li className="flex items-center justify-between p-3 bg-green-50 rounded-lg border border-green-100 text-sm">
-                <span className="font-semibold text-green-900">How Canadians Govern</span>
-                <span className="text-green-600 font-bold">Strong</span>
-              </li>
-            </ul>
+            {weakAreas.length > 0 ? (
+              <>
+                <p className="text-sm text-gray-500 mb-4">Based on your performance, focus your study on these chapters from Discover Canada:</p>
+                <ul className="space-y-3">
+                  {weakAreas.map((area) => (
+                    <li key={area.name} className={`flex items-center justify-between p-3 rounded-lg border text-sm ${
+                      area.accuracy < 60 ? 'bg-red-50 border-red-100' : 
+                      area.accuracy < 80 ? 'bg-orange-50 border-orange-100' : 
+                      'bg-green-50 border-green-100'
+                    }`}>
+                      <span className={`font-semibold ${
+                        area.accuracy < 60 ? 'text-red-900' : 
+                        area.accuracy < 80 ? 'text-orange-900' : 
+                        'text-green-900'
+                      }`}>{area.name}</span>
+                      <span className={`font-bold ${
+                        area.accuracy < 60 ? 'text-red-600' : 
+                        area.accuracy < 80 ? 'text-orange-600' : 
+                        'text-green-600'
+                      }`}>{area.accuracy}%</span>
+                    </li>
+                  ))}
+                </ul>
+              </>
+            ) : (
+              <p className="text-sm text-gray-500">Take tests to see which chapters need more review.</p>
+            )}
           </div>
         </div>
 

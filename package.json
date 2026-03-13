@@ -9,6 +9,9 @@
     "lint": "next lint",
     "prepare": "husky"
   },
+  "prisma": {
+    "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
+  },
   "dependencies": {
     "@prisma/adapter-pg": "^7.4.2",
     "@prisma/client": "^7.4.2",
@@ -32,6 +35,8 @@
     "postcss": "^8",
     "prisma": "^7.4.2",
     "tailwindcss": "^3.4.1",
+    "ts-node": "^10.9.2",
+    "tslib": "^2.8.1",
     "typescript": "^5"
   },
   "lint-staged": {
