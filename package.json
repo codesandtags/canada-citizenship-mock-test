@@ -4,10 +4,11 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "npm run db:generate && next build",
     "start": "next start",
     "lint": "next lint",
     "prepare": "husky",
+    "postinstall": "npm run db:generate",
     "db:generate": "npx prisma generate",
     "db:push": "npx prisma db push",
     "db:seed": "npx prisma db seed",
