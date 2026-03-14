@@ -13,8 +13,9 @@ export default async function QuizPage({
   const session = await auth()
   const mockId = typeof searchParams.id === 'string' ? searchParams.id : '1'
   
-  // Requirement: Restrict non-free mocks to logged-in users
-  if (mockId !== '1' && !session) {
+  // Requirement: Only the first 2 mocks are available for non logged in users
+  const publicMocks = ['1', '2'];
+  if (!publicMocks.includes(mockId) && !session) {
     redirect('/login?redirectTo=/quiz?id=' + mockId)
   }
 

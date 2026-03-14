@@ -1,8 +1,12 @@
 import Link from 'next/link'
-import { BookOpen, Target, Clock, ShieldCheck, PlayCircle } from 'lucide-react'
+import { BookOpen, Target, Clock, ShieldCheck, PlayCircle, Lock, Unlock } from 'lucide-react'
 import { availableMocks } from '@/lib/mocks'
+import { auth } from '@/lib/auth'
 
-export default function Home() {
+export default async function Home() {
+  const session = await auth();
+  const publicMockIds = ['1', '2'];
+
   return (
     <main className="min-h-screen bg-white">
       {/* Hero Section */}
@@ -31,26 +35,46 @@ export default function Home() {
               Prepare effectively with our interactive mock tests. We use the real official &quot;<a target="_blank" rel="noopener noreferrer" href="https://www.canada.ca/en/immigration-refugees-citizenship/corporate/publications-manuals/discover-canada.html" className="text-red-600 hover:text-red-700 font-semibold transition-colors">Discover Canada</a>&quot; study guide to generate questions so you know exactly what to expect on exam day.
             </p>
 
-            <div className="mt-10 grid gap-6 sm:grid-cols-2">
-              {availableMocks.map((mock) => (
-                <div key={mock.id} className="relative flex flex-col items-start justify-between rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-900/5 transition-all hover:-translate-y-1 hover:shadow-lg border border-gray-100">
-                  <div className="flex items-center gap-x-4">
-                    <h3 className="text-lg font-bold leading-6 text-gray-900">
-                      {mock.title}
-                    </h3>
+            <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {availableMocks.map((mock) => {
+                const isLocked = !session && !publicMockIds.includes(mock.id);
+                return (
+                  <div key={mock.id} className={`relative flex flex-col items-start justify-between rounded-2xl p-6 shadow-sm ring-1 ring-gray-900/5 transition-all hover:-translate-y-1 hover:shadow-lg border ${isLocked ? 'bg-gray-50/50 border-gray-200' : 'bg-white border-gray-100'}`}>
+                    <div className="w-full">
+                      <div className="flex items-center justify-between w-full mb-4">
+                        <h3 className="text-lg font-bold leading-6 text-gray-900 pr-2">
+                          {mock.title}
+                        </h3>
+                        {isLocked ? (
+                          <Lock className="h-4 w-4 text-gray-400 shrink-0" />
+                        ) : (
+                          <Unlock className="h-4 w-4 text-green-500 shrink-0" />
+                        )}
+                      </div>
+                      <p className="mt-2 text-sm leading-6 text-gray-600 line-clamp-2">
+                        {mock.description}
+                      </p>
+                    </div>
+                    {isLocked ? (
+                      <Link
+                        href="/login"
+                        className="mt-6 flex w-full items-center justify-center gap-x-2 rounded-xl bg-gray-200 px-4 py-3 text-sm font-bold text-gray-600 shadow-sm hover:bg-gray-300 transition-colors"
+                      >
+                        <Lock className="h-4 w-4" />
+                        Sign in to Unlock
+                      </Link>
+                    ) : (
+                      <Link
+                        href={`/quiz?id=${mock.id}`}
+                        className="mt-6 flex w-full items-center justify-center gap-x-2 rounded-xl bg-red-600 px-4 py-3 text-sm font-semibold text-white shadow-sm hover:bg-red-700 transition-all"
+                      >
+                        <PlayCircle className="h-4 w-4" />
+                        Start Mock Exam
+                      </Link>
+                    )}
                   </div>
-                  <p className="mt-2 text-sm leading-6 text-gray-600">
-                    {mock.description}
-                  </p>
-                  <Link
-                    href={`/quiz?id=${mock.id}`}
-                    className="mt-6 flex w-full items-center justify-center gap-x-2 rounded-xl bg-red-600 px-4 py-3 text-sm font-semibold text-white shadow-sm hover:bg-red-700"
-                  >
-                    <PlayCircle className="h-4 w-4" />
-                    Start Mock Exam
-                  </Link>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
 
