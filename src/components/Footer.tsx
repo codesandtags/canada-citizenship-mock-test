@@ -6,7 +6,7 @@ export default function Footer() {
     <footer className="bg-white border-t border-gray-100 mt-auto">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
-          
+
           <div className="col-span-1 md:col-span-1">
             <Link href="/" className="group flex items-center gap-2 mb-4">
               <div className="flex h-6 w-8 overflow-hidden rounded-sm shadow-sm border border-gray-100 group-hover:scale-105 transition-transform">
@@ -70,7 +70,7 @@ export default function Footer() {
           </p>
           <div className="flex items-center gap-2 bg-gray-50 px-3 py-1.5 rounded-full border border-gray-200">
              <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
-             <span className="text-xs font-bold text-gray-600 uppercase tracking-wider">Version v0.0.5</span>
+             <span className="text-xs font-bold text-gray-600 uppercase tracking-wider">Version v0.0.7</span>
           </div>
         </div>
       </div>

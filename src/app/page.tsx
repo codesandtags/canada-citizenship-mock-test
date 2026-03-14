@@ -1,11 +1,7 @@
 import Link from 'next/link'
 import { BookOpen, Target, Clock, ShieldCheck, PlayCircle, Lock, Unlock } from 'lucide-react'
-import { availableMocks } from '@/lib/mocks'
-import { auth } from '@/lib/auth'
 
 export default async function Home() {
-  const session = await auth();
-  const publicMockIds = ['1', '2'];
 
   return (
     <main className="min-h-screen bg-white">
@@ -16,9 +12,9 @@ export default async function Home() {
           <div className="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#ff80b5] to-[#f43f5e] opacity-20 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"></div>
         </div>
 
-        <div className="mx-auto max-w-7xl px-6 pb-24 pt-20 sm:pb-32 lg:flex lg:px-8 lg:py-32">
+        <div className="mx-auto max-w-7xl px-6 pb-16 pt-14 sm:pb-20 lg:flex lg:px-8 lg:py-24">
           <div className="mx-auto max-w-2xl lg:mx-0 lg:max-w-xl lg:flex-shrink-0 lg:pt-8">
-            <div className="mt-24 sm:mt-32 lg:mt-16">
+            <div className="mt-16 sm:mt-20 lg:mt-8">
               <a href="#" className="inline-flex space-x-6">
                 <span className="rounded-full bg-red-600/10 px-3 py-1 text-sm font-semibold leading-6 text-red-600 ring-1 ring-inset ring-red-600/10">Updated for 2026</span>
                 <span className="inline-flex items-center space-x-2 text-sm font-medium leading-6 text-gray-600">
@@ -27,55 +23,13 @@ export default async function Home() {
               </a>
             </div>
 
-            <h1 className="mt-10 text-5xl font-extrabold tracking-tight text-gray-900 sm:text-7xl">
+            <h1 className="mt-6 text-4xl font-extrabold tracking-tight text-gray-900 sm:text-5xl">
               Pass your Canada Citizenship test on the <span className="text-red-600">first try.</span>
             </h1>
 
-            <p className="mt-6 text-lg leading-8 text-gray-600">
+            <p className="mt-4 text-base leading-7 text-gray-600">
               Prepare effectively with our interactive mock tests. We use the real official &quot;<a target="_blank" rel="noopener noreferrer" href="https://www.canada.ca/en/immigration-refugees-citizenship/corporate/publications-manuals/discover-canada.html" className="text-red-600 hover:text-red-700 font-semibold transition-colors">Discover Canada</a>&quot; study guide to generate questions so you know exactly what to expect on exam day.
             </p>
-
-            <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {availableMocks.map((mock) => {
-                const isLocked = !session && !publicMockIds.includes(mock.id);
-                return (
-                  <div key={mock.id} className={`relative flex flex-col items-start justify-between rounded-2xl p-6 shadow-sm ring-1 ring-gray-900/5 transition-all hover:-translate-y-1 hover:shadow-lg border ${isLocked ? 'bg-gray-50/50 border-gray-200' : 'bg-white border-gray-100'}`}>
-                    <div className="w-full">
-                      <div className="flex items-center justify-between w-full mb-4">
-                        <h3 className="text-lg font-bold leading-6 text-gray-900 pr-2">
-                          {mock.title}
-                        </h3>
-                        {isLocked ? (
-                          <Lock className="h-4 w-4 text-gray-400 shrink-0" />
-                        ) : (
-                          <Unlock className="h-4 w-4 text-green-500 shrink-0" />
-                        )}
-                      </div>
-                      <p className="mt-2 text-sm leading-6 text-gray-600 line-clamp-2">
-                        {mock.description}
-                      </p>
-                    </div>
-                    {isLocked ? (
-                      <Link
-                        href="/login"
-                        className="mt-6 flex w-full items-center justify-center gap-x-2 rounded-xl bg-gray-200 px-4 py-3 text-sm font-bold text-gray-600 shadow-sm hover:bg-gray-300 transition-colors"
-                      >
-                        <Lock className="h-4 w-4" />
-                        Sign in to Unlock
-                      </Link>
-                    ) : (
-                      <Link
-                        href={`/quiz?id=${mock.id}`}
-                        className="mt-6 flex w-full items-center justify-center gap-x-2 rounded-xl bg-red-600 px-4 py-3 text-sm font-semibold text-white shadow-sm hover:bg-red-700 transition-all"
-                      >
-                        <PlayCircle className="h-4 w-4" />
-                        Start Mock Exam
-                      </Link>
-                    )}
-                  </div>
-                );
-              })}
-            </div>
           </div>
 
           {/* Hero Image / Graphic block */}
@@ -104,6 +58,70 @@ export default async function Home() {
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Mock Exam Cards */}
+      <div className="mx-auto max-w-5xl px-6 lg:px-8 -mt-8 pb-16 relative z-10">
+        <div className="grid gap-6 sm:grid-cols-3">
+          {/* Free Mock #1 */}
+          <div className="relative flex flex-col items-start justify-between rounded-2xl p-6 bg-white shadow-sm ring-1 ring-gray-900/5 transition-all hover:-translate-y-1 hover:shadow-lg border border-gray-100">
+            <div className="w-full">
+              <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 bg-green-50 text-green-700 rounded-full text-xs font-bold uppercase tracking-wider mb-3">
+                <Unlock className="h-3 w-3" />
+                Free
+              </div>
+              <h3 className="text-lg font-bold leading-6 text-gray-900 mb-2">Official Mock Exam #1</h3>
+              <p className="text-sm leading-6 text-gray-500">20 questions covering rights, history, geography and government.</p>
+            </div>
+            <Link
+              href="/quiz?id=1"
+              className="mt-5 flex w-full items-center justify-center gap-x-2 rounded-xl bg-red-600 px-4 py-3 text-sm font-semibold text-white shadow-sm hover:bg-red-700 transition-all"
+            >
+              <PlayCircle className="h-4 w-4" />
+              Start Mock Exam
+            </Link>
+          </div>
+
+          {/* Free Mock #2 */}
+          <div className="relative flex flex-col items-start justify-between rounded-2xl p-6 bg-white shadow-sm ring-1 ring-gray-900/5 transition-all hover:-translate-y-1 hover:shadow-lg border border-gray-100">
+            <div className="w-full">
+              <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 bg-green-50 text-green-700 rounded-full text-xs font-bold uppercase tracking-wider mb-3">
+                <Unlock className="h-3 w-3" />
+                Free
+              </div>
+              <h3 className="text-lg font-bold leading-6 text-gray-900 mb-2">Official Mock Exam #2</h3>
+              <p className="text-sm leading-6 text-gray-500">A fresh set of 20 randomized questions from the study guide.</p>
+            </div>
+            <Link
+              href="/quiz?id=2"
+              className="mt-5 flex w-full items-center justify-center gap-x-2 rounded-xl bg-red-600 px-4 py-3 text-sm font-semibold text-white shadow-sm hover:bg-red-700 transition-all"
+            >
+              <PlayCircle className="h-4 w-4" />
+              Start Mock Exam
+            </Link>
+          </div>
+
+          {/* Unlock All Mocks CTA */}
+          <div className="relative flex flex-col items-start justify-between rounded-2xl p-6 bg-gradient-to-br from-gray-900 to-gray-800 shadow-sm ring-1 ring-gray-900/5 transition-all hover:-translate-y-1 hover:shadow-lg border border-gray-700 overflow-hidden">
+            <div className="absolute -right-6 -bottom-6 text-white/5 rotate-12 pointer-events-none">
+              <ShieldCheck className="w-28 h-28" />
+            </div>
+            <div className="w-full relative z-10">
+              <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 bg-white/10 text-amber-300 rounded-full text-xs font-bold uppercase tracking-wider mb-3">
+                <Lock className="h-3 w-3" />
+                3 More Mocks
+              </div>
+              <h3 className="text-lg font-bold leading-6 text-white mb-2">Unlock All Exams</h3>
+              <p className="text-sm leading-6 text-gray-400">Sign in to access Geography, History, and Government & Rights mock exams.</p>
+            </div>
+            <Link
+              href="/login"
+              className="mt-5 relative z-10 flex w-full items-center justify-center gap-x-2 rounded-xl bg-white px-4 py-3 text-sm font-bold text-gray-900 shadow-sm hover:bg-gray-100 transition-all"
+            >
+              Sign In to Unlock
+            </Link>
           </div>
         </div>
       </div>
