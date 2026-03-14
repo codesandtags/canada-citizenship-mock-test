@@ -31,7 +31,7 @@ model Question {
   explanation   String
   category      String?   // Added for V0.0.6 analytics
   reference     String?
-  mockExamId    String?   
+  mockExamId    String?
   mockExam      MockExam? @relation(fields: [mockExamId], references: [id])
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
@@ -43,8 +43,8 @@ model QuizResult {
   score      Int
   total      Int
   passed     Boolean
-  answers    Int[]    
-  mockExamId String?  
+  answers    Int[]
+  mockExamId String?
   mockExam   MockExam? @relation(fields: [mockExamId], references: [id])
   createdAt  DateTime @default(now())
 }

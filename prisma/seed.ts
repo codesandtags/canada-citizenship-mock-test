@@ -1,7 +1,12 @@
+import 'dotenv/config'
+import { Pool } from 'pg'
+import { PrismaPg } from '@prisma/adapter-pg'
 import { PrismaClient } from '../src/generated/prisma'
 import { availableMocks } from '../src/lib/mocks'
 
-const prisma = new PrismaClient()
+const pool = new Pool({ connectionString: process.env.DATABASE_URL })
+const adapter = new PrismaPg(pool)
+const prisma = new PrismaClient({ adapter })
 
 async function main() {
   console.log('Start seeding...')
@@ -22,10 +27,10 @@ async function main() {
 
     console.log(`Upserted mock exam: ${upsertedMock.title}`)
 
+    // Clear existing questions first to avoid duplicates on re-run
+    await prisma.question.deleteMany({ where: { mockExamId: upsertedMock.id } })
+
     for (const q of mock.questions) {
-      // Use a combination of mockExamId and text to "find" or create questions
-      // Since Question ID is a UUID in the DB, we'll just create them for now
-      // A more robust seed would check for existing questions.
       await prisma.question.create({
         data: {
           text: q.text,

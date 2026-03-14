@@ -31,9 +31,9 @@ interface QuizComponentProps {
   score?: number;
 }
 
-export default function QuizComponent({ 
-  mockExam, 
-  userId, 
+export default function QuizComponent({
+  mockExam,
+  userId,
   isReviewMode = false,
   userAnswers: initialUserAnswers,
   score: initialScore
@@ -148,7 +148,7 @@ export default function QuizComponent({
           <h2 className="text-4xl font-black text-gray-900 mb-8 tracking-tight text-balance">
             {isReviewMode ? 'Result Review' : `${mockExam.title} Completed!`}
           </h2>
-          
+
           <div className={`p-8 sm:p-10 rounded-full border-8 ${passed ? 'border-green-500 text-green-600 bg-green-50' : 'border-red-500 text-red-600 bg-red-50'} shadow-inner mb-6`}>
              <div className="text-5xl sm:text-6xl font-extrabold">{score} <span className="text-3xl text-gray-400">/ {mockExam.questions.length}</span></div>
           </div>
@@ -349,22 +349,31 @@ export default function QuizComponent({
       </div>
 
       {/* Feedback & Actions section */}
-      <div className="border-t border-gray-100 pt-8 min-h-[140px]">
+      <div className="border-t border-gray-100 pt-8">
         {isAnswerSubmitted ? (
-          <div className="flex flex-col md:flex-row gap-6 justify-between items-start md:items-center">
-            <div className={`flex-1 p-5 rounded-xl flex gap-4 items-start shadow-sm
-               ${selectedAnswer === currentQuestion.correctAnswer ? 'bg-green-50/80 text-green-800 border border-green-200' : 'bg-red-50/80 text-red-800 border border-red-200'}`}>
-              <AlertCircle className={`w-7 h-7 flex-shrink-0 mt-0.5 ${selectedAnswer === currentQuestion.correctAnswer ? 'text-green-600' : 'text-red-600'}`} />
-              <div>
+          <div className="flex flex-col gap-4">
+            {/* Full-width feedback panel */}
+            <div className={`w-full p-5 rounded-xl flex gap-4 items-start shadow-sm
+               ${selectedAnswer === currentQuestion.correctAnswer
+                 ? 'bg-green-50/80 text-green-800 border border-green-200'
+                 : 'bg-red-50/80 text-red-800 border border-red-200'}`}>
+              <AlertCircle className={`w-6 h-6 flex-shrink-0 mt-0.5 ${selectedAnswer === currentQuestion.correctAnswer ? 'text-green-600' : 'text-red-600'}`} />
+              <div className="flex-1 min-w-0">
                 <h4 className={`font-bold text-lg mb-1 ${selectedAnswer === currentQuestion.correctAnswer ? 'text-green-700' : 'text-red-700'}`}>
-                  {selectedAnswer === currentQuestion.correctAnswer ? 'Correct!' : 'Incorrect'}
+                  {selectedAnswer === currentQuestion.correctAnswer ? '✓ Correct!' : '✗ Incorrect'}
                 </h4>
                 <p className="text-base leading-relaxed opacity-90">{currentQuestion.explanation}</p>
               </div>
             </div>
+
+            {/* Full-width Next button below */}
             <button
               onClick={handleNextQuestion}
-              className="w-full md:w-auto px-8 py-4 bg-gray-900 hover:bg-black text-white font-bold rounded-xl transition-all shadow-md hover:shadow-lg whitespace-nowrap"
+              className={`w-full py-4 font-bold rounded-xl transition-all shadow-md hover:shadow-lg text-white text-lg
+                ${selectedAnswer === currentQuestion.correctAnswer
+                  ? 'bg-green-600 hover:bg-green-700'
+                  : 'bg-gray-900 hover:bg-black'
+                }`}
             >
               {currentQuestionIndex < mockExam.questions.length - 1 ? 'Next Question →' : 'Finish Quiz'}
             </button>
