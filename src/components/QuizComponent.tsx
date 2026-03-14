@@ -192,41 +192,41 @@ export default function QuizComponent({
 
   if (quizFinished) {
     return (
-      <div className="w-full max-w-5xl mx-auto px-4 py-8 sm:py-12">
-        <div className="bg-white rounded-3xl shadow-xl border border-gray-100 overflow-hidden mb-12">
-          <div className="p-8 sm:p-12 text-center flex flex-col items-center">
-            <h2 className="text-3xl sm:text-4xl font-black text-gray-900 mb-8 tracking-tight text-balance">
+      <div className="w-full max-w-3xl mx-auto px-4 py-6 sm:py-8">
+        <div className="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden mb-8">
+          <div className="p-6 sm:p-8 text-center flex flex-col items-center">
+            <h2 className="text-xl sm:text-2xl font-black text-gray-900 mb-5 tracking-tight text-balance">
               {isReviewMode ? 'Result Review' : `${mockExam.title} Completed!`}
             </h2>
 
-            <div className={`p-8 sm:p-10 rounded-full border-8 ${passed ? 'border-green-500 text-green-600 bg-green-50' : 'border-red-500 text-red-600 bg-red-50'} shadow-inner mb-6 relative group transition-transform hover:scale-105`}>
-               <div className="text-5xl sm:text-6xl font-extrabold">{score} <span className="text-3xl text-gray-400">/ {mockExam.questions.length}</span></div>
+            <div className={`p-5 sm:p-6 rounded-full border-4 ${passed ? 'border-green-500 text-green-600 bg-green-50' : 'border-red-500 text-red-600 bg-red-50'} shadow-inner mb-4 relative group transition-transform hover:scale-105`}>
+               <div className="text-3xl sm:text-4xl font-extrabold">{score} <span className="text-xl text-gray-400">/ {mockExam.questions.length}</span></div>
                {passed && (
-                 <div className="absolute -top-2 -right-2 bg-green-500 text-white p-2 rounded-full shadow-lg">
-                   <CheckCircle className="w-6 h-6" />
+                 <div className="absolute -top-1 -right-1 bg-green-500 text-white p-1.5 rounded-full shadow-lg">
+                   <CheckCircle className="w-4 h-4" />
                  </div>
                )}
             </div>
 
-            <p className="text-xl sm:text-2xl font-medium text-gray-700 max-w-lg text-center mb-10">
+            <p className="text-base sm:text-lg font-medium text-gray-700 max-w-lg text-center mb-6">
               {passed ? "Congratulations! You passed the mock test." : "You didn't pass this time. Review your answers below and keep studying!"}
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4 w-full justify-center max-w-lg">
+            <div className="flex flex-col sm:flex-row gap-3 w-full justify-center max-w-md">
               {!isReviewMode && (
                 <button
                   onClick={handleRestartQuiz}
-                  className="flex-1 flex items-center justify-center space-x-2 px-8 py-4 bg-red-600 hover:bg-red-700 text-white font-bold rounded-xl transition-all shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
+                  className="flex-1 flex items-center justify-center space-x-2 px-6 py-3 bg-red-600 hover:bg-red-700 text-white text-sm font-bold rounded-xl transition-all shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
                 >
-                  <RefreshCcw className="w-5 h-5" />
+                  <RefreshCcw className="w-4 h-4" />
                   <span>Retake Exam</span>
                 </button>
               )}
               <Link
                 href={userId ? "/dashboard" : "/"}
-                className="flex-1 flex items-center justify-center space-x-2 px-8 py-4 bg-white hover:bg-gray-50 text-gray-900 border-2 border-gray-200 font-bold rounded-xl transition-all shadow-sm hover:shadow-md transform hover:-translate-y-0.5"
+                className="flex-1 flex items-center justify-center space-x-2 px-6 py-3 bg-white hover:bg-gray-50 text-gray-900 border-2 border-gray-200 text-sm font-bold rounded-xl transition-all shadow-sm hover:shadow-md transform hover:-translate-y-0.5"
               >
-                <Home className="w-5 h-5" />
+                <Home className="w-4 h-4" />
                 <span>{userId ? 'Go to Dashboard' : 'Go Home'}</span>
               </Link>
             </div>
@@ -240,12 +240,12 @@ export default function QuizComponent({
 
           {/* Guest CTA Section */}
           {!userId && !isReviewMode && (
-            <div className="bg-gray-50 border-t border-gray-100 p-8 sm:p-12">
-              <div className="max-w-4xl mx-auto flex flex-col lg:flex-row gap-12 items-center">
-                <div className="flex-1 bg-gradient-to-br from-blue-600 to-blue-700 rounded-3xl p-8 shadow-xl text-left relative overflow-hidden group">
+            <div className="bg-gray-50 border-t border-gray-100 p-6 sm:p-8">
+              <div className="max-w-3xl mx-auto flex flex-col lg:flex-row gap-8 items-center">
+                <div className="flex-1 bg-gradient-to-br from-blue-600 to-blue-700 rounded-2xl p-6 shadow-xl text-left relative overflow-hidden group">
                   {/* Decorative background element */}
                   <div className="absolute -right-10 -bottom-10 text-white/10 rotate-12 transition-transform group-hover:scale-110 pointer-events-none">
-                    <ShieldCheck className="w-48 h-48" />
+                    <ShieldCheck className="w-32 h-32" />
                   </div>
 
                   <div className="relative z-10">
@@ -253,13 +253,13 @@ export default function QuizComponent({
                       <Target className="w-3 h-3" />
                       Save your progress
                     </div>
-                    <h3 className="text-2xl font-bold text-white mb-2">Want to keep these results?</h3>
-                    <p className="text-blue-100 mb-6 max-w-md">
+                    <h3 className="text-lg font-bold text-white mb-1">Want to keep these results?</h3>
+                    <p className="text-blue-100 text-sm mb-4 max-w-md">
                       Sign in now to save your score, track your improvement over time, and identify which chapters you need to study more.
                     </p>
                     <Link
                       href="/login"
-                      className="inline-flex items-center gap-2 px-6 py-3 bg-white text-blue-600 font-bold rounded-xl hover:bg-blue-50 transition-colors shadow-lg"
+                      className="inline-flex items-center gap-2 px-5 py-2.5 bg-white text-blue-600 text-sm font-bold rounded-xl hover:bg-blue-50 transition-colors shadow-lg"
                     >
                       Create Free Account
                       <ArrowRight className="w-4 h-4" />
@@ -317,69 +317,69 @@ export default function QuizComponent({
         </div>
 
         {/* Detailed Review Section */}
-        <div className="max-w-4xl mx-auto">
-          <h3 className="text-2xl flex items-center gap-2 font-black px-4 mb-8 text-gray-900">
-            <CheckCircle className="w-7 h-7 text-green-600" />
+        <div className="max-w-3xl mx-auto">
+          <h3 className="text-lg flex items-center gap-2 font-black px-4 mb-5 text-gray-900">
+            <CheckCircle className="w-5 h-5 text-green-600" />
             Detailed Review Breakdown
           </h3>
-          <div className="space-y-6">
+          <div className="space-y-4">
             {mockExam.questions.map((question, idx) => {
               const userAnswerIndex = userAnswers[idx];
               const isCorrect = userAnswerIndex === question.correctAnswer;
 
               return (
-                <div key={question.id || idx} className="p-6 md:p-10 bg-white rounded-3xl shadow-sm border border-gray-100 transition-all hover:shadow-md">
-                  <div className="flex items-start gap-4 mb-6">
-                    <div className={`mt-1 flex-shrink-0 w-10 h-10 rounded-xl flex items-center justify-center ${isCorrect ? 'bg-green-100 text-green-600' : 'bg-red-100 text-red-600'}`}>
+                <div key={question.id || idx} className="p-4 md:p-6 bg-white rounded-xl shadow-sm border border-gray-100 transition-all hover:shadow-md">
+                  <div className="flex items-start gap-3 mb-4">
+                    <div className={`mt-0.5 flex-shrink-0 w-7 h-7 rounded-lg flex items-center justify-center ${isCorrect ? 'bg-green-100 text-green-600' : 'bg-red-100 text-red-600'}`}>
                       {isCorrect ? (
-                        <CheckCircle className="w-6 h-6" />
+                        <CheckCircle className="w-4 h-4" />
                       ) : (
-                        <XCircle className="w-6 h-6" />
+                        <XCircle className="w-4 h-4" />
                       )}
                     </div>
                     <div className="flex-1">
-                      <div className="flex flex-wrap items-center gap-3 mb-2">
-                        <span className="text-sm font-bold text-gray-400 uppercase tracking-widest block">Question {idx + 1}</span>
+                      <div className="flex flex-wrap items-center gap-2 mb-1">
+                        <span className="text-xs font-bold text-gray-400 uppercase tracking-widest block">Question {idx + 1}</span>
                         {question.category && (
                           <span className="text-[10px] font-black px-2 py-0.5 bg-gray-100 text-gray-500 rounded-full uppercase tracking-tighter">
                             {question.category}
                           </span>
                         )}
                       </div>
-                      <h4 className="text-xl md:text-2xl font-bold text-gray-900 leading-tight">{question.text}</h4>
+                      <h4 className="text-base md:text-lg font-bold text-gray-900 leading-snug">{question.text}</h4>
                     </div>
                   </div>
 
-                  <div className="ml-0 sm:ml-14 space-y-4">
+                  <div className="ml-0 sm:ml-10 space-y-3">
                     {/* User's Choice */}
                     {!isCorrect && userAnswerIndex !== null && userAnswerIndex !== undefined && userAnswerIndex !== -1 && (
-                      <div className="p-4 rounded-2xl bg-red-50 border border-red-100 flex items-start gap-3">
+                      <div className="p-3 rounded-xl bg-red-50 border border-red-100 flex items-start gap-2">
                          <XCircle className="w-5 h-5 text-red-500 mt-0.5 flex-shrink-0" />
                          <div>
                            <p className="text-xs font-bold text-red-600 uppercase tracking-wider mb-1">Your Answer</p>
-                           <p className="text-red-900 font-bold">{question.options[userAnswerIndex]}</p>
+                           <p className="text-red-900 text-sm font-medium">{question.options[userAnswerIndex]}</p>
                          </div>
                       </div>
                     )}
 
                     {/* Correct Choice */}
-                    <div className={`p-4 rounded-2xl border flex items-start gap-3 ${isCorrect ? 'bg-green-50 border-green-100' : 'bg-white border-gray-100'}`}>
+                    <div className={`p-3 rounded-xl border flex items-start gap-2 ${isCorrect ? 'bg-green-50 border-green-100' : 'bg-white border-gray-100'}`}>
                        <CheckCircle className="w-5 h-5 text-green-600 mt-0.5 flex-shrink-0"/>
                        <div>
                          <p className="text-xs font-bold text-green-700 uppercase tracking-wider mb-1">Correct Answer</p>
-                         <p className="text-green-900 font-bold">{question.options[question.correctAnswer]}</p>
+                         <p className="text-green-900 text-sm font-medium">{question.options[question.correctAnswer]}</p>
                        </div>
                     </div>
 
                     {/* Explanation */}
-                     <div className="mt-6 p-6 rounded-2xl bg-gray-50 border border-gray-100 text-gray-700 space-y-4">
+                     <div className="mt-3 p-4 rounded-xl bg-gray-50 border border-gray-100 text-gray-700 space-y-3">
                         <div>
-                          <p className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Study Explanation</p>
-                          <p className="leading-relaxed text-lg text-gray-800">{question.explanation}</p>
+                          <p className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">Study Explanation</p>
+                          <p className="leading-relaxed text-sm text-gray-800">{question.explanation}</p>
                         </div>
 
                         {question.reference && (
-                          <div className="pt-4 border-t border-gray-200 flex items-center justify-between">
+                          <div className="pt-3 border-t border-gray-200 flex items-center justify-between">
                             <div className="flex items-center gap-2">
                               <BookOpen className="w-4 h-4 text-red-600" />
                               <span className="text-sm font-bold text-red-600 uppercase tracking-tight">
