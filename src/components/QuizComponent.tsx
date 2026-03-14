@@ -503,8 +503,8 @@ export default function QuizComponent({
           {/* Feedback & Actions section */}
           <div className="px-5 py-5 sm:px-8 sm:py-6 bg-gray-50 border-t border-gray-100 min-h-[120px] flex items-center">
             {isAnswerSubmitted ? (
-              <div className="w-full flex flex-col sm:flex-row gap-4 justify-between items-stretch sm:items-center animate-in fade-in slide-in-from-bottom-4 duration-500">
-                <div className={`flex-1 p-4 rounded-xl flex gap-3 items-start shadow-sm border
+              <div className="w-full flex flex-col gap-3 animate-in fade-in slide-in-from-bottom-4 duration-500">
+                <div className={`w-full p-4 rounded-xl flex gap-3 items-start shadow-sm border
                    ${selectedAnswer === currentQuestion.correctAnswer
                      ? 'bg-green-100/50 text-green-800 border-green-200'
                      : 'bg-red-100/50 text-red-800 border-red-200'}`}>
@@ -516,12 +516,14 @@ export default function QuizComponent({
                     <p className="text-sm font-normal leading-relaxed opacity-90">{currentQuestion.explanation}</p>
                   </div>
                 </div>
-                <button
-                  onClick={handleNextQuestion}
-                  className="px-8 py-3 bg-gray-900 hover:bg-black text-white font-bold rounded-xl transition-all shadow-xl hover:shadow-2xl hover:-translate-y-0.5 active:translate-y-0 whitespace-nowrap text-sm uppercase tracking-wider"
-                >
-                  {currentQuestionIndex < mockExam.questions.length - 1 ? 'Next →' : 'Finish Quiz'}
-                </button>
+                <div className="flex justify-end">
+                  <button
+                    onClick={handleNextQuestion}
+                    className="px-8 py-3 bg-gray-900 hover:bg-black text-white font-bold rounded-xl transition-all shadow-xl hover:shadow-2xl hover:-translate-y-0.5 active:translate-y-0 whitespace-nowrap text-sm uppercase tracking-wider"
+                  >
+                    {currentQuestionIndex < mockExam.questions.length - 1 ? 'Next →' : 'Finish Quiz'}
+                  </button>
+                </div>
               </div>
             ) : (
               <div className="w-full flex justify-end">

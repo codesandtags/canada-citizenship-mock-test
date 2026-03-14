@@ -11,7 +11,7 @@ export const mock5Questions = [
     correctAnswer: 2,
     category: "Rights and Responsibilities",
     explanation: "In Canada, we profess our loyalty to a person who represents all Canadians (the Sovereign), not to a document or a flag.",
-    reference: "Discover Canada Guide, Page 2"
+    reference: "Discover Canada Guide, Page 3"
   },
   {
     id: 2,
@@ -71,7 +71,7 @@ export const mock5Questions = [
     correctAnswer: 0,
     category: "How Canadians Govern Themselves",
     explanation: "Parliament has three parts: the Sovereign (represented by the Governor General), the Senate, and the House of Commons.",
-    reference: "Discover Canada Guide, Page 28"
+    reference: "Discover Canada Guide, Page 29"
   },
   {
     id: 7,
@@ -85,7 +85,7 @@ export const mock5Questions = [
     correctAnswer: 2,
     category: "How Canadians Govern Themselves",
     explanation: "Senators are appointed by the Governor General on the advice of the Prime Minister and serve until age 75.",
-    reference: "Discover Canada Guide, Page 28"
+    reference: "Discover Canada Guide, Page 29"
   },
   {
     id: 8,
@@ -94,7 +94,7 @@ export const mock5Questions = [
     correctAnswer: 2,
     category: "How Canadians Govern Themselves",
     explanation: "The final step (Step 7) is Royal Assent, granted by the Governor General on behalf of the Sovereign.",
-    reference: "Discover Canada Guide, Page 29"
+    reference: "Discover Canada Guide, Page 31"
   },
   {
     id: 9,
@@ -108,7 +108,7 @@ export const mock5Questions = [
     correctAnswer: 1,
     category: "How Canadians Govern Themselves",
     explanation: "The Sovereign (Head of State) reigns, but the Prime Minister (Head of Government) actually directs the governing of the country.",
-    reference: "Discover Canada Guide, Page 29"
+    reference: "Discover Canada Guide, Page 31"
   },
   {
     id: 10,
@@ -117,7 +117,7 @@ export const mock5Questions = [
     correctAnswer: 2,
     category: "Federal Elections",
     explanation: "Elections Canada mails a voter information card to each elector whose name is in the National Register of Electors.",
-    reference: "Discover Canada Guide, Page 30"
+    reference: "Discover Canada Guide, Pages 30-31"
   },
   {
     id: 11,
@@ -145,7 +145,7 @@ export const mock5Questions = [
     correctAnswer: 1,
     category: "Federal Elections",
     explanation: "If the party in power holds at least half of the seats in the House of Commons, it is called a majority government.",
-    reference: "Discover Canada Guide, Page 31"
+    reference: "Discover Canada Guide, Page 32"
   },
   {
     id: 13,
@@ -154,7 +154,7 @@ export const mock5Questions = [
     correctAnswer: 2,
     category: "Federal Elections",
     explanation: "Municipal governments are responsible for local services such as snow removal, recycling, and firefighting.",
-    reference: "Discover Canada Guide, Page 33"
+    reference: "Discover Canada Guide, Page 32"
   },
   {
     id: 14,
@@ -168,7 +168,7 @@ export const mock5Questions = [
     correctAnswer: 2,
     category: "Federal Elections",
     explanation: "First Nations have band chiefs and councillors who have major responsibilities on First Nations reserves.",
-    reference: "Discover Canada Guide, Page 33"
+    reference: "Discover Canada Guide, Page 32"
   },
   {
     id: 15,
@@ -186,7 +186,7 @@ export const mock5Questions = [
     correctAnswer: 2,
     category: "The Justice System",
     explanation: "The Supreme Court of Canada is our country’s highest court.",
-    reference: "Discover Canada Guide, Page 37"
+    reference: "Discover Canada Guide, Page 36"
   },
   {
     id: 17,
@@ -195,7 +195,7 @@ export const mock5Questions = [
     correctAnswer: 0,
     category: "Canadian Symbols",
     explanation: "A mari usque ad mare means 'from sea to sea.'",
-    reference: "Discover Canada Guide, Page 38"
+    reference: "Discover Canada Guide, Page 39"
   },
   {
     id: 18,
@@ -204,7 +204,7 @@ export const mock5Questions = [
     correctAnswer: 3,
     category: "Canadian Symbols",
     explanation: "O Canada was proclaimed as the national anthem in 1980, though it was first sung in 1880.",
-    reference: "Discover Canada Guide, Page 40"
+    reference: "Discover Canada Guide, Page 41"
   },
   {
     id: 19,
@@ -213,7 +213,7 @@ export const mock5Questions = [
     correctAnswer: 2,
     category: "Canadian Symbols",
     explanation: "The Victoria Cross (V.C.) is the highest honour available to Canadians and is awarded for the most conspicuous bravery.",
-    reference: "Discover Canada Guide, Page 41"
+    reference: "Discover Canada Guide, Page 40"
   },
   {
     id: 20,
@@ -222,6 +222,6 @@ export const mock5Questions = [
     correctAnswer: 2,
     category: "Canadian Symbols",
     explanation: "The beaver was adopted as an official symbol of Canada in 1975.",
-    reference: "Discover Canada Guide, Page 37"
+    reference: "Discover Canada Guide, Page 39"
   }
 ];

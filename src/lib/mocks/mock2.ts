@@ -11,7 +11,7 @@ export const mock2Questions = [
     correctAnswer: 2,
     category: "How Canadians Govern Themselves",
     explanation: "Canada is a constitutional monarchy. The Head of State is a hereditary Sovereign (Queen or King) who reigns in accordance with the Constitution.",
-    reference: "Discover Canada Guide, Page 26"
+    reference: "Discover Canada Guide, Page 29"
   },
   {
     id: 2,
@@ -25,7 +25,7 @@ export const mock2Questions = [
     correctAnswer: 1,
     category: "Canadian Symbols",
     explanation: "The Royal Anthem of Canada is 'God Save the King' (or Queen). 'O Canada' is the national anthem.",
-    reference: "Discover Canada Guide, Page 38"
+    reference: "Discover Canada Guide, Page 40"
   },
   {
     id: 3,
@@ -53,7 +53,7 @@ export const mock2Questions = [
     correctAnswer: 0,
     category: "How Canadians Govern Themselves",
     explanation: "Parliament has three parts: the Sovereign (represented by the Governor General), the Senate, and the House of Commons.",
-    reference: "Discover Canada Guide, Page 28"
+    reference: "Discover Canada Guide, Page 29"
   },
   {
     id: 5,
@@ -67,7 +67,7 @@ export const mock2Questions = [
     correctAnswer: 1,
     category: "How Canadians Govern Themselves",
     explanation: "The role of opposition parties is to peacefully oppose or try to improve government proposals.",
-    reference: "Discover Canada Guide, Page 29"
+    reference: "Discover Canada Guide, Page 31"
   },
   {
     id: 6,
@@ -95,7 +95,7 @@ export const mock2Questions = [
     correctAnswer: 3,
     category: "Canada's Regions",
     explanation: "Ottawa, located on the Ottawa River, was chosen as the capital of Canada by Queen Victoria in 1857.",
-    reference: "Discover Canada Guide, Page 45"
+    reference: "Discover Canada Guide, Page 47"
   },
   {
     id: 8,
@@ -109,7 +109,7 @@ export const mock2Questions = [
     correctAnswer: 1,
     category: "Who We Are",
     explanation: "Canada has a population of about 38 million people (as of recent data in the guide's context).",
-    reference: "Discover Canada Guide, Page 10"
+    reference: "Discover Canada Guide, Page 11"
   },
   {
     id: 9,
@@ -123,7 +123,7 @@ export const mock2Questions = [
     correctAnswer: 0,
     category: "Who We Are",
     explanation: "The Acadians are the descendants of French colonists who began settling in what are now the Maritime provinces in 1604.",
-    reference: "Discover Canada Guide, Page 10"
+    reference: "Discover Canada Guide, Page 11"
   },
   {
     id: 10,
@@ -137,7 +137,7 @@ export const mock2Questions = [
     correctAnswer: 1,
     category: "Rights and Responsibilities",
     explanation: "The Magna Carta (Great Charter) of 1215 is a historic document that influences our rights and freedoms, including the rule of law.",
-    reference: "Discover Canada Guide, Page 8"
+    reference: "Discover Canada Guide, Page 9"
   },
   {
     id: 11,
@@ -151,7 +151,7 @@ export const mock2Questions = [
     correctAnswer: 1,
     category: "Who We Are",
     explanation: "English and French are Canada's two official languages.",
-    reference: "Discover Canada Guide, Page 12"
+    reference: "Discover Canada Guide, Page 11"
   },
   {
     id: 12,
@@ -165,7 +165,7 @@ export const mock2Questions = [
     correctAnswer: 2,
     category: "Canadian Symbols",
     explanation: "The beaver was adopted as an official symbol of Canada in 1975.",
-    reference: "Discover Canada Guide, Page 37"
+    reference: "Discover Canada Guide, Page 39"
   },
   {
     id: 13,
@@ -179,7 +179,7 @@ export const mock2Questions = [
     correctAnswer: 3,
     category: "Canada's History",
     explanation: "On July 1, 1867, the provinces of Ontario, Quebec, Nova Scotia, and New Brunswick joined together in Confederation.",
-    reference: "Discover Canada Guide, Page 17"
+    reference: "Discover Canada Guide, Page 19"
   },
   {
     id: 14,
@@ -193,7 +193,7 @@ export const mock2Questions = [
     correctAnswer: 0,
     category: "Canada's History",
     explanation: "In 1867, Sir John Alexander Macdonald, a Father of Confederation, became Canada’s first Prime Minister.",
-    reference: "Discover Canada Guide, Page 17"
+    reference: "Discover Canada Guide, Page 19"
   },
   {
     id: 15,
@@ -207,7 +207,7 @@ export const mock2Questions = [
     correctAnswer: 2,
     category: "How Canadians Govern Themselves",
     explanation: "The Governor General is the representative of the Sovereign in Canada.",
-    reference: "Discover Canada Guide, Page 28"
+    reference: "Discover Canada Guide, Page 29"
   },
   {
     id: 16,
@@ -221,7 +221,7 @@ export const mock2Questions = [
     correctAnswer: 1,
     category: "Federal Elections",
     explanation: "Under legislation passed by Parliament, federal elections must be held on the third Monday in October in the fourth calendar year following the last general election, although they may be called earlier.",
-    reference: "Discover Canada Guide, Page 30"
+    reference: "Discover Canada Guide, Pages 30-31"
   },
   {
     id: 17,
@@ -235,7 +235,7 @@ export const mock2Questions = [
     correctAnswer: 2,
     category: "How Canadians Govern Themselves",
     explanation: "The Judicial branch (the court system) interprets and applies the laws.",
-    reference: "Discover Canada Guide, Page 26"
+    reference: "Discover Canada Guide, Page 29"
   },
   {
     id: 18,
@@ -277,6 +277,6 @@ export const mock2Questions = [
     correctAnswer: 1,
     category: "Canadian Symbols",
     explanation: "Canada’s motto, 'A Mari Usque Ad Mare', means 'from sea to sea'.",
-    reference: "Discover Canada Guide, Page 38"
+    reference: "Discover Canada Guide, Page 39"
   }
 ];

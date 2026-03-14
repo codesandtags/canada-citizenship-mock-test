@@ -6,7 +6,7 @@ export const mock4Questions = [
     correctAnswer: 2,
     category: "Canada's History",
     explanation: "Territorial rights were first guaranteed through the Royal Proclamation of 1763 by King George III.",
-    reference: "Discover Canada Guide, Page 10"
+    reference: "Discover Canada Guide, Page 11"
   },
   {
     id: 2,
@@ -15,7 +15,7 @@ export const mock4Questions = [
     correctAnswer: 3,
     category: "Canada's History",
     explanation: "In 2008, Ottawa formally apologized to the former students of residential schools.",
-    reference: "Discover Canada Guide, Page 10"
+    reference: "Discover Canada Guide, Page 11"
   },
   {
     id: 3,
@@ -61,7 +61,7 @@ export const mock4Questions = [
     correctAnswer: 2,
     category: "Canada's History",
     explanation: "In 1793, Upper Canada, led by Lieutenant Governor John Graves Simcoe, became the first province in the Empire to move toward abolition.",
-    reference: "Discover Canada Guide, Page 16"
+    reference: "Discover Canada Guide, Pages 16-17"
   },
   {
     id: 7,
@@ -75,7 +75,7 @@ export const mock4Questions = [
     correctAnswer: 1,
     category: "Canada's History",
     explanation: "The Underground Railroad was a Christian anti-slavery network used by slaves escaping the United States to settle in Canada.",
-    reference: "Discover Canada Guide, Page 16"
+    reference: "Discover Canada Guide, Pages 16-17"
   },
   {
     id: 8,
@@ -84,7 +84,7 @@ export const mock4Questions = [
     correctAnswer: 0,
     category: "Canada's History",
     explanation: "The Montreal Stock Exchange opened in 1832.",
-    reference: "Discover Canada Guide, Page 16"
+    reference: "Discover Canada Guide, Pages 16-17"
   },
   {
     id: 9,
@@ -98,7 +98,7 @@ export const mock4Questions = [
     correctAnswer: 1,
     category: "Canada's History",
     explanation: "In retaliation for the burning of Government House in York, Major-General Robert Ross led an expedition that burned down the White House.",
-    reference: "Discover Canada Guide, Page 17"
+    reference: "Discover Canada Guide, Pages 16-17"
   },
   {
     id: 10,
@@ -107,7 +107,7 @@ export const mock4Questions = [
     correctAnswer: 1,
     category: "Canada's History",
     explanation: "In 1813, Laura Secord made a dangerous 19-mile journey on foot to warn of a planned American attack.",
-    reference: "Discover Canada Guide, Page 17"
+    reference: "Discover Canada Guide, Pages 16-17"
   },
   {
     id: 11,
@@ -121,7 +121,7 @@ export const mock4Questions = [
     correctAnswer: 2,
     category: "Canada's History",
     explanation: "Lord Durham recommended that Upper and Lower Canada be merged and given responsible government.",
-    reference: "Discover Canada Guide, Page 17"
+    reference: "Discover Canada Guide, Pages 16-17"
   },
   {
     id: 12,
@@ -135,7 +135,7 @@ export const mock4Questions = [
     correctAnswer: 2,
     category: "Canada's History",
     explanation: "The men who worked together from 1864 to 1867 to establish a new country are known as the Fathers of Confederation.",
-    reference: "Discover Canada Guide, Page 18"
+    reference: "Discover Canada Guide, Page 19"
   },
   {
     id: 13,
@@ -176,7 +176,7 @@ export const mock4Questions = [
     correctAnswer: 1,
     category: "Canada's History",
     explanation: "On November 7, 1885, the Canadian Pacific Railway was completed when the 'last spike' was driven.",
-    reference: "Discover Canada Guide, Page 20"
+    reference: "Discover Canada Guide, Pages 20-21"
   },
   {
     id: 17,
@@ -190,7 +190,7 @@ export const mock4Questions = [
     correctAnswer: 2,
     category: "Canada's History",
     explanation: "The capture of Vimy Ridge secured the Canadians’ reputation for valour as the 'shock troops of the British Empire.'",
-    reference: "Discover Canada Guide, Page 21"
+    reference: "Discover Canada Guide, Pages 20-21"
   },
   {
     id: 18,
@@ -199,7 +199,7 @@ export const mock4Questions = [
     correctAnswer: 1,
     category: "Canada's History",
     explanation: "In 1921 Agnes Macphail, a farmer and teacher, became the first woman MP.",
-    reference: "Discover Canada Guide, Page 21"
+    reference: "Discover Canada Guide, Pages 20-21"
   },
   {
     id: 19,
@@ -208,7 +208,7 @@ export const mock4Questions = [
     correctAnswer: 2,
     category: "Canada's History",
     explanation: "On June 6, 1944, 15,000 Canadian troops stormed and captured Juno Beach.",
-    reference: "Discover Canada Guide, Page 23"
+    reference: "Discover Canada Guide, Pages 22-23"
   },
   {
     id: 20,
@@ -217,6 +217,6 @@ export const mock4Questions = [
     correctAnswer: 1,
     category: "Canada's History",
     explanation: "Lieutenant-Colonel John McCrae composed the poem 'In Flanders Fields' in 1915.",
-    reference: "Discover Canada Guide, Page 22"
+    reference: "Discover Canada Guide, Pages 22-23"
   }
 ];

@@ -39,7 +39,7 @@ export const mock1Questions = [
     correctAnswer: 2,
     category: "How Canadians Govern Themselves",
     explanation: "Members of Parliament (MPs) are elected by Canadian citizens in their local constituencies (ridings) to represent them in the House of Commons.",
-    reference: "Discover Canada Guide, Page 28"
+    reference: "Discover Canada Guide, Page 29"
   },
   {
     id: 4,
@@ -53,7 +53,7 @@ export const mock1Questions = [
     correctAnswer: 0,
     category: "Rights and Responsibilities",
     explanation: "The Magna Carta (signed in 1215) is a historic document that influences our rights, and the Canadian Charter of Rights and Freedoms (1982) is entrenched in our Constitution.",
-    reference: "Discover Canada Guide, Page 8"
+    reference: "Discover Canada Guide, Page 9"
   },
   {
     id: 5,
@@ -67,7 +67,7 @@ export const mock1Questions = [
     correctAnswer: 2,
     category: "Rights and Responsibilities",
     explanation: "Canadians enjoy fundamental freedoms including conscience and religion; thought, belief, opinion and expression (including free speech and a free press); peaceful assembly; and association.",
-    reference: "Discover Canada Guide, Page 8"
+    reference: "Discover Canada Guide, Page 9"
   },
   {
     id: 6,
@@ -95,7 +95,7 @@ export const mock1Questions = [
     correctAnswer: 1,
     category: "Who We Are",
     explanation: "Aboriginal, French, and British peoples are the three founding peoples of Canada.",
-    reference: "Discover Canada Guide, Page 10"
+    reference: "Discover Canada Guide, Page 11"
   },
   {
     id: 8,
@@ -137,7 +137,7 @@ export const mock1Questions = [
     correctAnswer: 1,
     category: "Canada's History",
     explanation: "Responsible government means that the ministers of the Crown must have the support of a majority of the elected representatives in order to govern. If they lose a confidence vote, they must resign.",
-    reference: "Discover Canada Guide, Page 16"
+    reference: "Discover Canada Guide, Page 19"
   },
   {
     id: 11,
@@ -151,7 +151,7 @@ export const mock1Questions = [
     correctAnswer: 1,
     category: "Canada's History",
     explanation: "La Fontaine was a champion of French language rights and became the first leader of a responsible government in the Canadas in 1849.",
-    reference: "Discover Canada Guide, Page 16"
+    reference: "Discover Canada Guide, Page 19"
   },
   {
     id: 12,
@@ -165,7 +165,7 @@ export const mock1Questions = [
     correctAnswer: 1,
     category: "Canada's History",
     explanation: "A powerful symbol of unity, the Canadian Pacific Railway joined the East to the West, fulfilling a promise made to British Columbia when it joined Confederation.",
-    reference: "Discover Canada Guide, Page 18"
+    reference: "Discover Canada Guide, Page 20"
   },
   {
     id: 13,
@@ -179,7 +179,7 @@ export const mock1Questions = [
     correctAnswer: 1,
     category: "Canada's History",
     explanation: "Confederation (1867) is the joining of provinces (Ontario, Quebec, Nova Scotia, and New Brunswick) to make a new country called the Dominion of Canada.",
-    reference: "Discover Canada Guide, Page 17"
+    reference: "Discover Canada Guide, Page 19"
   },
   {
     id: 14,
@@ -193,7 +193,7 @@ export const mock1Questions = [
     correctAnswer: 2,
     category: "Modern Canada",
     explanation: "In 1922, Sir Frederick Banting and Charles Best discovered insulin, a hormone to treat diabetes that has saved 16 million lives worldwide.",
-    reference: "Discover Canada Guide, Page 24"
+    reference: "Discover Canada Guide, Page 26"
   },
   {
     id: 15,
@@ -207,7 +207,7 @@ export const mock1Questions = [
     correctAnswer: 2,
     category: "How Canadians Govern Themselves",
     explanation: "In a constitutional monarchy, Canada's Head of State is a hereditary Sovereign (Queen or King) who reigns in accordance with the Constitution, while the Head of Government is the Prime Minister.",
-    reference: "Discover Canada Guide, Page 26"
+    reference: "Discover Canada Guide, Page 29"
   },
   {
     id: 16,
@@ -221,7 +221,7 @@ export const mock1Questions = [
     correctAnswer: 1,
     category: "How Canadians Govern Themselves",
     explanation: "The three branches of government are the Executive, Legislative, and Judicial branches.",
-    reference: "Discover Canada Guide, Page 26"
+    reference: "Discover Canada Guide, Page 29"
   },
   {
     id: 17,
@@ -235,7 +235,7 @@ export const mock1Questions = [
     correctAnswer: 2,
     category: "Canada's History",
     explanation: "The Victoria Cross (V.C.) is the highest honour available to Canadians and is awarded for the most conspicuous bravery.",
-    reference: "Discover Canada Guide, Page 20"
+    reference: "Discover Canada Guide, Page 40"
   },
   {
     id: 18,
@@ -249,7 +249,7 @@ export const mock1Questions = [
     correctAnswer: 0,
     category: "How Canadians Govern Themselves",
     explanation: "To vote in a federal election, you must be a Canadian citizen, at least 18 years old on voting day, and on the voters' list.",
-    reference: "Discover Canada Guide, Page 30"
+    reference: "Discover Canada Guide, Pages 30-31"
   },
   {
     id: 19,
@@ -277,6 +277,6 @@ export const mock1Questions = [
     correctAnswer: 1,
     category: "Canadian Symbols",
     explanation: "The beaver and the maple leaf are prominent Canadian symbols recognized worldwide.",
-    reference: "Discover Canada Guide, Pages 36-37"
+    reference: "Discover Canada Guide, Pages 38-39"
   }
 ];

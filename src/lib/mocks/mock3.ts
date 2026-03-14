@@ -6,7 +6,7 @@ export const mock3Questions = [
     correctAnswer: 1,
     category: "Canada's Regions",
     explanation: "Canada is the second largest country on earth, covering 10 million square kilometres.",
-    reference: "Discover Canada Guide, Page 44"
+    reference: "Discover Canada Guide, Page 45"
   },
   {
     id: 2,
@@ -20,7 +20,7 @@ export const mock3Questions = [
     correctAnswer: 2,
     category: "Canada's Regions",
     explanation: "Three oceans line Canada’s frontiers: the Pacific Ocean in the west, the Atlantic Ocean in the east, and the Arctic Ocean to the north.",
-    reference: "Discover Canada Guide, Page 44"
+    reference: "Discover Canada Guide, Page 45"
   },
   {
     id: 3,
@@ -47,7 +47,7 @@ export const mock3Questions = [
     correctAnswer: 3,
     category: "Canada's Regions",
     explanation: "Toronto is the largest city in Canada and the country’s main financial centre.",
-    reference: "Discover Canada Guide, Page 48"
+    reference: "Discover Canada Guide, Page 47"
   },
   {
     id: 6,
@@ -65,7 +65,7 @@ export const mock3Questions = [
     correctAnswer: 2,
     category: "Canada's Regions",
     explanation: "Alberta is the largest producer of oil and gas, and the oil sands in the north are being developed as a major energy source.",
-    reference: "Discover Canada Guide, Page 49"
+    reference: "Discover Canada Guide, Page 48"
   },
   {
     id: 8,
@@ -74,7 +74,7 @@ export const mock3Questions = [
     correctAnswer: 1,
     category: "Canada's Regions",
     explanation: "The capital of British Columbia is Victoria, a tourist centre and headquarters of the navy’s Pacific fleet.",
-    reference: "Discover Canada Guide, Page 49"
+    reference: "Discover Canada Guide, Page 48"
   },
   {
     id: 9,
@@ -101,7 +101,7 @@ export const mock3Questions = [
     correctAnswer: 2,
     category: "Canada's Economy",
     explanation: "More than 75% of working Canadians now have jobs in service industries.",
-    reference: "Discover Canada Guide, Page 42"
+    reference: "Discover Canada Guide, Page 43"
   },
   {
     id: 12,
@@ -110,7 +110,7 @@ export const mock3Questions = [
     correctAnswer: 3,
     category: "Canada's Economy",
     explanation: "Our largest international trading partner is the United States.",
-    reference: "Discover Canada Guide, Page 42"
+    reference: "Discover Canada Guide, Page 43"
   },
   {
     id: 13,
@@ -124,7 +124,7 @@ export const mock3Questions = [
     correctAnswer: 0,
     category: "Canada's Economy",
     explanation: "NAFTA stands for the North American Free Trade Agreement.",
-    reference: "Discover Canada Guide, Page 42"
+    reference: "Discover Canada Guide, Page 43"
   },
   {
     id: 14,
@@ -156,7 +156,7 @@ export const mock3Questions = [
     correctAnswer: 2,
     category: "Canada's Regions",
     explanation: "Canada has a population of about 34 million people.",
-    reference: "Discover Canada Guide, Page 44"
+    reference: "Discover Canada Guide, Page 45"
   },
   {
     id: 17,
