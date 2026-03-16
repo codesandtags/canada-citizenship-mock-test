@@ -12,7 +12,7 @@ export default async function QuizPage({
 }) {
   const session = await auth()
   const mockId = typeof searchParams.id === 'string' ? searchParams.id : '1'
-  
+
   // Requirement: Only the first 2 mocks are available for non logged in users
   const publicMocks = ['1', '2'];
   if (!publicMocks.includes(mockId) && !session) {
@@ -26,9 +26,9 @@ export default async function QuizPage({
   }
 
   return (
-    <main className="min-h-screen bg-gray-50 flex flex-col items-center justify-center p-4">
-      <QuizComponent 
-        mockExam={mockExam} 
+    <main className="min-h-screen flex flex-col items-center justify-center p-4" style={{ backgroundColor: '#222' }}>
+      <QuizComponent
+        mockExam={mockExam}
         userId={session?.user?.id}
       />
     </main>
