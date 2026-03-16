@@ -18,6 +18,7 @@ import {
   BookOpen
 } from 'lucide-react'
 import { saveQuizAction } from '@/app/actions/save-quiz'
+import { track } from '@vercel/analytics'
 
 // Enhanced types for V0.0.6
 export interface QuestionType {
@@ -88,25 +89,38 @@ export default function QuizComponent({
 
   // Save the result when the quiz finishes (only if not in review mode)
   useEffect(() => {
-    if (quizFinished && !isReviewMode && userId) {
+    if (quizFinished && !isReviewMode) {
       const finalScore = userAnswers.reduce((total: number, answer, index) => {
         return answer === mockExam.questions[index].correctAnswer ? total + 1 : total
       }, 0)
       const isPassed = finalScore >= 15
 
-      setIsSaving(true);
-      saveQuizAction({
+      // Track quiz completion event
+      track('quiz_completed', {
+        mockExamId: mockExam.id,
+        mockExamTitle: mockExam.title,
         score: finalScore,
         total: mockExam.questions.length,
         passed: isPassed,
-        answers: userAnswers.map(a => a ?? -1),
-        mockExamId: mockExam.id
-      })
-      .then(res => {
-        if (!res.success) setSaveError(res.error || 'Failed to save');
-      })
-      .catch(() => setSaveError('Failed to save result'))
-      .finally(() => setIsSaving(false));
+        scorePercentage: Math.round((finalScore / mockExam.questions.length) * 100),
+        isAuthenticated: !!userId
+      });
+
+      if (userId) {
+        setIsSaving(true);
+        saveQuizAction({
+          score: finalScore,
+          total: mockExam.questions.length,
+          passed: isPassed,
+          answers: userAnswers.map(a => a ?? -1),
+          mockExamId: mockExam.id
+        })
+        .then(res => {
+          if (!res.success) setSaveError(res.error || 'Failed to save');
+        })
+        .catch(() => setSaveError('Failed to save result'))
+        .finally(() => setIsSaving(false));
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [quizFinished, isReviewMode, userId]);
@@ -172,6 +186,10 @@ export default function QuizComponent({
   };
 
   const handleRestartQuiz = () => {
+    track('quiz_restarted', {
+      mockExamId: mockExam.id,
+      mockExamTitle: mockExam.title
+    });
     setCurrentQuestionIndex(0);
     setSelectedAnswer(null);
     setIsAnswerSubmitted(false);

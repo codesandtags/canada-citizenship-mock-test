@@ -277,6 +277,6 @@ export const mock2Questions = [
     correctAnswer: 1,
     category: "Canadian Symbols",
     explanation: "Canada’s motto, 'A Mari Usque Ad Mare', means 'from sea to sea'.",
-    reference: "Discover Canada Guide, Page 39"
+    reference: "Discover Canada Guide, Page 38"
   }
 ];

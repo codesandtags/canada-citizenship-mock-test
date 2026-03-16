@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import { Analytics } from "@vercel/analytics/react";
 import LayoutWrapper from "@/components/LayoutWrapper";
 import FooterWrapper from "@/components/FooterWrapper";
 import { auth } from "@/lib/auth";
@@ -67,6 +68,7 @@ export default async function RootLayout({
           {children}
         </div>
         <FooterWrapper />
+        <Analytics />
       </body>
     </html>
   );

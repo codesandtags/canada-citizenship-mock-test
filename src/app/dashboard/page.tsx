@@ -21,7 +21,7 @@ export default async function DashboardPage() {
   const totalTests = results.length;
   const passedTests = results.filter(r => r.passed).length;
   const passRate = totalTests > 0 ? Math.round((passedTests / totalTests) * 100) : 0;
-  
+
   let averageScorePercentage = 0;
   if (totalTests > 0) {
     const totalPercentageSum = results.reduce((acc, r) => acc + (r.score / r.total), 0);
@@ -34,22 +34,22 @@ export default async function DashboardPage() {
   // REAL ANALYTICS: Focus Areas
   // We need to find which categories the user is failing in.
   const categoryStats: Record<string, { total: number, correct: number }> = {};
-  
+
   // To get real categories, we'd need to link results to questions.
   // Since we save answers[] as indices, and we have in-memory mocks:
   results.forEach(result => {
     const mock = availableMocks.find(m => m.id === result.mockExamId);
     if (!mock) return;
-    
+
     result.answers.forEach((userAnswerIndex, qIndex) => {
       const question = mock.questions[qIndex];
       if (!question) return;
-      
+
       const category = question.category || 'General';
       if (!categoryStats[category]) {
         categoryStats[category] = { total: 0, correct: 0 };
       }
-      
+
       categoryStats[category].total += 1;
       if (userAnswerIndex === question.correctAnswer) {
         categoryStats[category].correct += 1;
@@ -68,7 +68,7 @@ export default async function DashboardPage() {
   const weakAreas = sortedCategories.slice(0, 3);
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div className="bg-gray-50 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
         <div>
           <h1 className="text-3xl font-extrabold text-gray-900 tracking-tight">Your Dashboard</h1>
@@ -132,7 +132,7 @@ export default async function DashboardPage() {
       </div>
 
       <div className="grid md:grid-cols-3 gap-8">
-        
+
         {/* Main Content: Test History */}
         <div className="md:col-span-2 space-y-8">
           <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 md:p-8">
@@ -147,8 +147,8 @@ export default async function DashboardPage() {
             ) : (
               <div className="space-y-4">
                 {results.map((result) => (
-                  <Link 
-                    key={result.id} 
+                  <Link
+                    key={result.id}
                     href={`/dashboard/results/${result.id}`}
                     className="p-5 rounded-xl border border-gray-100 hover:border-red-100 hover:shadow-md transition-all bg-white flex flex-col sm:flex-row sm:items-center justify-between gap-4 group"
                   >
@@ -190,8 +190,8 @@ export default async function DashboardPage() {
                     const percentage = (r.score / r.total) * 100;
                     return (
                       <div key={i} className="flex-1 bg-gray-100 rounded-t-md relative group flex justify-center">
-                        <div 
-                          className={`w-full rounded-t-md absolute bottom-0 ${r.passed ? 'bg-green-500' : 'bg-red-500'}`} 
+                        <div
+                          className={`w-full rounded-t-md absolute bottom-0 ${r.passed ? 'bg-green-500' : 'bg-red-500'}`}
                           style={{ height: `${percentage}%` }}
                         ></div>
                         <span className="absolute -top-6 text-xs font-bold text-gray-600 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
@@ -218,18 +218,18 @@ export default async function DashboardPage() {
                 <ul className="space-y-3">
                   {weakAreas.map((area) => (
                     <li key={area.name} className={`flex items-center justify-between p-3 rounded-lg border text-sm ${
-                      area.accuracy < 60 ? 'bg-red-50 border-red-100' : 
-                      area.accuracy < 80 ? 'bg-orange-50 border-orange-100' : 
+                      area.accuracy < 60 ? 'bg-red-50 border-red-100' :
+                      area.accuracy < 80 ? 'bg-orange-50 border-orange-100' :
                       'bg-green-50 border-green-100'
                     }`}>
                       <span className={`font-semibold ${
-                        area.accuracy < 60 ? 'text-red-900' : 
-                        area.accuracy < 80 ? 'text-orange-900' : 
+                        area.accuracy < 60 ? 'text-red-900' :
+                        area.accuracy < 80 ? 'text-orange-900' :
                         'text-green-900'
                       }`}>{area.name}</span>
                       <span className={`font-bold ${
-                        area.accuracy < 60 ? 'text-red-600' : 
-                        area.accuracy < 80 ? 'text-orange-600' : 
+                        area.accuracy < 60 ? 'text-red-600' :
+                        area.accuracy < 80 ? 'text-orange-600' :
                         'text-green-600'
                       }`}>{area.accuracy}%</span>
                     </li>
