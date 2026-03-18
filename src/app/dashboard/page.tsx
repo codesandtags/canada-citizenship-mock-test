@@ -28,8 +28,6 @@ export default async function DashboardPage() {
     averageScorePercentage = Math.round((totalPercentageSum / totalTests) * 100);
   }
 
-  // Calculate historical trend (last 5 tests)
-  const recentResults = results.slice(0, 5).reverse();
 
   // REAL ANALYTICS: Focus Areas
   // We need to find which categories the user is failing in.
@@ -180,32 +178,6 @@ export default async function DashboardPage() {
 
         {/* Sidebar: Analytics & Weak Areas */}
         <div className="space-y-8">
-          <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
-            <h2 className="text-lg font-bold text-gray-900 mb-4">Improvement Trend</h2>
-            {totalTests > 1 ? (
-              <div className="space-y-3">
-                <p className="text-sm text-gray-500 mb-4">Your last 5 scores</p>
-                <div className="flex items-end gap-2 h-24">
-                  {recentResults.map((r, i) => {
-                    const percentage = (r.score / r.total) * 100;
-                    return (
-                      <div key={i} className="flex-1 bg-gray-100 rounded-t-md relative group flex justify-center">
-                        <div
-                          className={`w-full rounded-t-md absolute bottom-0 ${r.passed ? 'bg-green-500' : 'bg-red-500'}`}
-                          style={{ height: `${percentage}%` }}
-                        ></div>
-                        <span className="absolute -top-6 text-xs font-bold text-gray-600 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
-                          {Math.round(percentage)}%
-                        </span>
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-            ) : (
-              <p className="text-sm text-gray-500">Take more tests to see your performance trend.</p>
-            )}
-          </div>
 
           <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
             <div className="flex items-center gap-2 mb-4">
